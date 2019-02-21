@@ -1,0 +1,23 @@
+{
+  "name": "dimondchat",
+  "version": "1.0.0",
+  "description": "Chat App with Node.js Vue.js",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node -r esm server/app.js",
+    "dev": "nodemon -r esm server/app.js"
+  },
+  "author": "Onur Iltan",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^6.2.0",
+    "esm": "^3.2.5",
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}

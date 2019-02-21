@@ -1,20 +1,31 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv'
+let app = require('express')();
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
+let bodyParser = require('body-parser');
+let cookieParser = require('cookie-parser');
 
+let dotenv = require ('dotenv');
 // Environment Variables
 dotenv.config();
 
-const server = express();
-server.use(bodyParser.json());
-server.use(cookieParser());
+app.use(bodyParser.json());
+app.use(cookieParser());
 
-// Test
-server.get('/', (req, res) => res.send('Welcome'));
+
+io.on('connection', function(socket) {
+    console.log("Socket Id "+ socket.id);
+    socket.on('SEND_MESSAGE', function(data) {
+        console.log("Message "+ data.message);
+        io.emit('MESSAGE', data)
+    });
+});
+
+app.get('/', function(req, res){
+    res.send('Welcome');
+});
 
 const port = process.env.PORT || 5000;
-server.listen(port, () => {
+http.listen(port, function(){
     console.log(`Server started at port ${port}`)
 });
 

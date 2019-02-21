@@ -1,29 +1,62 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="card-title">
+        <h3>Chat Group</h3>
+        <hr>
+      </div>
+      <div class="card-body">
+        <div class="messages" v-for="(msg, index) in messages" :key="index">
+          <p><span class="font-weight-bold">{{ msg.user }}: </span>{{ msg.message }}</p>
+        </div>
+      </div>
     </div>
-    <router-view/>
+    <div class="card-footer">
+      <form @submit.prevent="sendMessage">
+        <div class="form-group">
+          <label for="user">User:</label>
+          <input type="text" v-model="user" class="form-control">
+        </div>
+        <div class="form-group pb-3">
+          <label for="message">Message:</label>
+          <input type="text" v-model="message" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success">Send</button>
+      </form>
+    </div>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import io from 'socket.io-client';
+export default {
+  data() {
+    return {
+      user: '',
+      message: '',
+      messages: [],
+      socket : io(process.env.VUE_APP_SOCKET_URL)
     }
+  },
+  methods: {
+    sendMessage(e) {
+      e.preventDefault();
+      this.socket.emit('SEND_MESSAGE', {
+        user: this.user,
+        message: this.message
+      });
+      this.message = ''
+    }
+  },
+  mounted() {
+    this.socket.on('MESSAGE', (data) => {
+      this.messages = [...this.messages, data];
+      // you can also do this.messages.push(data)
+    });
   }
 }
+</script>
+
+<style lang="scss">
+
 </style>

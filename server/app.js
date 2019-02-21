@@ -13,11 +13,25 @@ app.use(cookieParser());
 
 
 io.on('connection', function(socket) {
-    console.log("Socket Id "+ socket.id);
     socket.on('SEND_MESSAGE', function(data) {
-        console.log("Message "+ data.message);
-        io.emit('MESSAGE', data)
+        console.log("ID: "+socket.id+" Name: "+ data.user, " Message: "+ data.message);
+        socket.broadcast.emit('SEND_MESSAGE', (data))
     });
+    socket.on('CREATED', data => {
+        socket.broadcast.emit('CREATED', data)
+    });
+    socket.on('CHAT_MESSAGE', data => {
+        socket.broadcast.emit('CHAT_MESSAGE', data)
+    });
+    socket.on('TYPING', data => {
+        socket.broadcast.emit('TYPING', data)
+    });
+    socket.on('TYPING_STOPPED', data => {
+        socket.broadcast.emit('TYPING_STOPPED', data)
+    });
+    socket.on('disconnect', ()=> {
+        console.log('disconnected')
+    })
 });
 
 app.get('/', function(req, res){

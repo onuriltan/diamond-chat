@@ -1,0 +1,40 @@
+.navbar-container {
+  &__navbar {
+    background-color: black !important;
+    border-color: black !important;
+    border-bottom: solid 1px white !important;
+    font-family: 'Baloo', cursive;
+    padding: 0 100px;
+    position: fixed;
+    width: 100%;
+    &__brand {
+      display: flex;
+      align-items: center;
+      color: white !important;
+      font-size: 25px;
+      &__img {
+        margin-right: 20px;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-container {
+    &__navbar {
+      padding: 0 20px;
+      &__brand {
+        font-size: 18px;
+        &__img {
+          margin-right: 10px;
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+}
+
+

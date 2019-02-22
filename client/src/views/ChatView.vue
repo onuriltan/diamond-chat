@@ -3,13 +3,12 @@
 </template>
 
 <script>
-import Chat from '../components/Chat'
+import Chat from '../components/Chat';
 
 export default {
-  name: "ChatView",
+  name: 'ChatView',
   components: {
-    Chat
-  }
-}
+    Chat,
+  },
+};
 </script>
-

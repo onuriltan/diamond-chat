@@ -4,8 +4,8 @@ import Home from './views/HomeView.vue';
 
 Vue.use(Router);
 
-const Chat = () => import('./views/ChatView.vue')
-const Login = () => import('./views/LoginView.vue')
+const Chat = () => import('./views/ChatView.vue');
+const Login = () => import('./views/LoginView.vue');
 
 export default new Router({
   mode: 'history',
@@ -18,7 +18,7 @@ export default new Router({
       path: '/login', name: 'login', component: Login,
     },
     {
-      path: '/chat', name: 'chat', component: Chat
+      path: '/chat', name: 'chat', component: Chat,
     },
   ],
 });

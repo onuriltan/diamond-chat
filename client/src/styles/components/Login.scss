@@ -1,7 +1,23 @@
-.login-container {
+.login {
   min-height: calc(100vh);
   background: url('~@/assets/ds1.jpg') no-repeat fixed center black;
   background-size: contain;
+  display: flex;
+  justify-content: center;
+  &__form {
+    width: 400px;
+    background-color: $light_color;
+    border-radius: 5px;
+    height: 100%;
+    padding: 30px;
+    margin-top: 100px;
+    color: white;
+    box-shadow: 1px 1px 1px 1px #000;
+    &__header {
+      text-align: center;
+      padding-bottom: 30px;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {

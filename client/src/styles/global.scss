@@ -1,7 +1,7 @@
 @import url('https://stackpath.bootstrapcdn.com/bootswatch/4.2.1/simplex/bootstrap.min.css');
-@import url('https://fonts.googleapis.com/css?family=Russo+One');
-@import url('https://fonts.googleapis.com/css?family=Baloo');
-@font-face {
-  font-family:"PinkFloydFont";
-  src: url("/assets/floyd.TFF") format("truetype");
+@import "fonts.scss";
+@import "colors.scss";
+
+* {
+  font-family: 'Baloo', cursive;
 }

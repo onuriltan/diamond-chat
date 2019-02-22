@@ -1,8 +1,8 @@
 <template>
-    <div id="app">
-      <Header />
-      <router-view/>
-    </div>
+  <div>
+    <Header />
+    <router-view/>
+  </div>
 </template>
 
 <script>
@@ -14,7 +14,6 @@
     }
   }
 </script>
-
 <style lang="scss">
-  @import "styles/global.scss";
+  @import './styles/global.scss';
 </style>

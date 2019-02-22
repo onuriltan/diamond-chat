@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <Header />
-    <router-view/>
+    <div id="content">
+      <Header />
+      <router-view/>
+    </div>
     <Particles />
   </div>
 </template>

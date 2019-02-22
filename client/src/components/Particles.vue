@@ -130,7 +130,7 @@ export default {
 </script>
 <style lang="scss">
   #particles-js {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;

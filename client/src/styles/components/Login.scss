@@ -2,9 +2,11 @@
   min-height: calc(100vh);
   display: flex;
   justify-content: center;
+
   &__form {
-    width: 400px;
     background-color: $light_color;
+    opacity: 0.9;
+    width: 400px;
     border-radius: 5px;
     height: 100%;
     padding: 30px;

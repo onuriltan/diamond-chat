@@ -5,19 +5,19 @@
 <script>
 export default {
   name: 'Particles',
-  mounted () {
-    require('particles.js')
+  mounted() {
+    require('particles.js');
     this.$nextTick(() => {
-      this.initParticlesJS()
-    })
+      this.initParticlesJS();
+    });
   },
   methods: {
-    initParticlesJS () {
+    initParticlesJS() {
       /* eslint-disable */
       particlesJS("particles-js", {
         "particles": {
           "number": {
-            "value": 500,
+            "value": 750,
             "density": {
               "enable": true,
               "value_area": 789.1476416322727

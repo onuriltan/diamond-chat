@@ -10,13 +10,14 @@
 
 <script>
 import Header from './components/Header';
-import Particles from './components/Particles'
+import Particles from './components/Particles';
+
 export default {
   name: 'App',
   components: {
     Particles,
     Header,
-  }
+  },
 };
 </script>
 <style lang="scss">

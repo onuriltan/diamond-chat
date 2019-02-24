@@ -5,7 +5,8 @@
         <div class="chat-dashboard__background__messages">
           <p v-if="typing" class="chat-dashboard__background__messages__typing">User is typing...</p>
           <div v-for="message in messages">
-            <span :class="{'float-left' : message.type === 1}" class="chat-dashboard__background__messages__message">{{message.message}}</span>
+            <span :class="{'float-left' : message.type === 1, 'float-right' : message.type !== 1}"
+                  class="chat-dashboard__background__messages__message">{{message.message}}</span>
           </div>
         </div>
       </div>

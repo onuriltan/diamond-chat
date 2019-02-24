@@ -13,10 +13,10 @@
 
       <form class="chat-dashboard__message-form" @submit.prevent="sendMessage">
         <b-input-group class="chat-dashboard__message-form__inputgroup">
-          <b-form-input v-model="message"
+          <b-form-textarea v-model="message"
                         class="chat-dashboard__message-form__input"
-                        type="text"
-                        placeholder="Type here ..."></b-form-input>
+                        type="text" rows="3" max-rows="3"
+                        placeholder="Type here ..."></b-form-textarea>
           <b-input-group-append>
             <b-btn type="submit" class="chat-dashboard__message-form__button">Send</b-btn>
           </b-input-group-append>

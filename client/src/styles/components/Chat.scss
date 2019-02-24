@@ -1,10 +1,6 @@
 .chat-dashboard {
-  min-height: 100%;
-  min-width: 100%;
 
   &__background {
-    min-height: 90.7vh;
-    min-width: 100%;
     position: relative;
     &:before{
       content: '';
@@ -13,9 +9,12 @@
       right: 0;
       left: 0;
       bottom: 0;
-      background: rgba(27,27,27,0.7);
+      background: rgba(10,10,10,0.5);
     }
     &__messages {
+      min-height: calc(100vh - 135px);
+      max-height: calc(100vh - 135px);
+      overflow-y: scroll;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -25,23 +24,25 @@
         padding: 20px 0;
       }
       &__message {
+        padding: 5px 0;
         color: white;
-      }
+        font-size: 17px;
     }
   }
+}
 
-  &__message-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &__inputgroup {
-      flex-wrap: unset;
-    }
-    &__input {
-      width: 500px;
-    }
-    &__button {
-      background-color: #003366;
-    }
+&__message-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__inputgroup {
+    flex-wrap: unset;
   }
+  &__input {
+    width: 500px;
+  }
+  &__button {
+    background-color: #003366;
+  }
+}
 }

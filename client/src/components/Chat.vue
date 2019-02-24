@@ -1,26 +1,29 @@
 <template>
   <div class="container">
-    <div class="col-lg-6 offset-lg-3">
-      <div class="card bg-info">
-        <div class="card-header text-white">
-          Current Chat
-        </div>
-        <ul class="list-group list-group-flush text-right">
-          <small v-if="typing" class="text-white">User is typing...</small>
-          <li class="list-group-item" v-for="message in messages">
-            <span :class="{'float-left' : message.type === 1}">{{message.message}}</span>
-          </li>
-        </ul>
-        <div class="card-body">
-          <form @submit.prevent="sendMessage">
-            <div class="form-group">
-              <input type="text" class="form-control" v-model="message" placeholder="Type here...">
-            </div>
-            <button type="submit" class="btn btn-sm btn-primary">Send</button>
-          </form>
+    <div class="chat-dashboard">
+      <div class="chat-dashboard__background">
+        <div class="chat-dashboard__background__messages">
+          <p v-if="typing" class="chat-dashboard__background__messages__typing">User is typing...</p>
+          <div v-for="message in messages">
+            <span :class="{'float-left' : message.type === 1}" class="chat-dashboard__background__messages__message">{{message.message}}</span>
+          </div>
         </div>
       </div>
+
+      <form class="chat-dashboard__message-form" @submit.prevent="sendMessage">
+        <b-input-group class="chat-dashboard__message-form__inputgroup">
+          <b-form-input v-model="message"
+                        class="chat-dashboard__message-form__input"
+                        type="text"
+                        placeholder="Type here ..."></b-form-input>
+          <b-input-group-append>
+            <b-btn type="submit" class="chat-dashboard__message-form__button">Send</b-btn>
+          </b-input-group-append>
+        </b-input-group>
+      </form>
+
     </div>
+
   </div>
 </template>
 
@@ -67,6 +70,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
+<style scoped lang="scss">
+  @import "../styles/components/Chat";
 </style>

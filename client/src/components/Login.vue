@@ -13,10 +13,10 @@
 export default {
   name: 'Login',
   methods: {
-    loginWithFacebook () {
+    loginWithFacebook() {
 
-    }
-  }
+    },
+  },
 };
 </script>
 

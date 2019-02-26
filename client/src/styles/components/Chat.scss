@@ -12,8 +12,8 @@
       background: rgba(255, 255, 255, 0.159);
     }
     &__messages {
-      min-height: calc(100vh - 135px);
-      max-height: calc(100vh - 135px);
+      min-height: calc(100vh - 105px);
+      max-height: calc(100vh - 105px);
       overflow-y: scroll;
       position: relative;
       display: flex;

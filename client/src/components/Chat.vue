@@ -12,15 +12,16 @@
       </div>
 
       <form class="chat-dashboard__message-form" @submit.prevent="sendMessage">
-        <b-input-group class="chat-dashboard__message-form__inputgroup">
-          <b-form-textarea v-model="message"
+        <b-input-group class="chat-dashboard__message-form__inputgroup"  size="lg">
+          <b-form-input v-model="message"
                         class="chat-dashboard__message-form__input"
-                        type="text" rows="3" max-rows="3"
-                        placeholder="Type here ..."></b-form-textarea>
+                        type="text"
+                        placeholder="Type here ..."></b-form-input>
           <b-input-group-append>
             <b-btn type="submit" class="chat-dashboard__message-form__button">Send</b-btn>
           </b-input-group-append>
         </b-input-group>
+
       </form>
 
     </div>
@@ -30,8 +31,10 @@
 
 <script>
 import io from 'socket.io-client';
+import BFormInput from "bootstrap-vue/src/components/form-input/form-input";
 
 export default {
+  components: {BFormInput},
   data() {
     return {
       socket: io(process.env.VUE_APP_SOCKET_URL),

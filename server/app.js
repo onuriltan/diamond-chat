@@ -1,8 +1,10 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 
 const router = require('./app/routes');
 
@@ -12,6 +14,12 @@ dotenv.config();
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors());
+/*mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+    .then(() => console.log('MongoDB connected.'))
+    .catch(err => console.log(err));*/
+
+require('./app/config/PassportConfig');
 
 
 io.on('connection', function(socket) {
@@ -39,6 +47,8 @@ io.on('connection', function(socket) {
 app.get('/', function(req, res){
     res.send('Welcome');
 });
+
+
 
 // Load Routes
 router(app);

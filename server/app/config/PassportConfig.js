@@ -1,14 +1,20 @@
 const User = require('../models/UserModel');
 
 const passport = require('passport');
-const FacebookStrategy = require('passport-facebook');
+const FacebookTokenStrategy = require('passport-facebook-token');
 
-passport.use(new FacebookStrategy({
+passport.use("facebook-token",new FacebookTokenStrategy({
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "http://www.example.com/auth/facebook/callback"
-    },
-    function(accessToken, refreshToken, profile, done) {
-
+    }, async (accessToken, refreshToken, profile, done) => {
+        console.log(profile)
     }
 ));
+
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});

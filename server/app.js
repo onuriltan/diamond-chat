@@ -15,12 +15,12 @@ dotenv.config();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
+
 /*mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
     .then(() => console.log('MongoDB connected.'))
     .catch(err => console.log(err));*/
 
 require('./app/config/PassportConfig');
-
 
 io.on('connection', function(socket) {
     socket.on('SEND_MESSAGE', function(data) {

@@ -16,6 +16,7 @@
           <b-form-input v-model="message"
                         class="chat-dashboard__message-form__input"
                         type="text"
+                        autocomplete="off"
                         placeholder="Type here ..."></b-form-input>
           <b-input-group-append>
             <b-btn type="submit" class="chat-dashboard__message-form__button">Send</b-btn>

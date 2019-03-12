@@ -1,11 +1,13 @@
-let app = require('express')();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
-let bodyParser = require('body-parser');
-let cookieParser = require('cookie-parser');
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
-let dotenv = require ('dotenv');
+const router = require('./app/routes');
+
 // Environment Variables
+const dotenv = require ('dotenv');
 dotenv.config();
 
 app.use(bodyParser.json());
@@ -37,6 +39,9 @@ io.on('connection', function(socket) {
 app.get('/', function(req, res){
     res.send('Welcome');
 });
+
+// Load Routes
+router(app);
 
 const port = process.env.PORT || 5000;
 http.listen(port, function(){

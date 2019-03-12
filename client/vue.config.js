@@ -8,4 +8,11 @@ module.exports = {
       patterns: [path.resolve(__dirname, './src/styles/global.scss')],
     },
   },
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import "@/styles/global.scss";`
+      }
+    }
+  }
 };

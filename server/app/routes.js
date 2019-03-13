@@ -1,5 +1,6 @@
 const express = require('express');
 
+// Controllers
 const authController = require('./controllers/AuthController');
 
 module.exports = function (app) {

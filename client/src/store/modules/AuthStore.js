@@ -20,17 +20,14 @@ const AuthStore = {
     },
   },
   actions: {
-    loginWithFacebook(context, params) {
-      return new Promise(resolve => {
-        authService.loginWithFacebook(params)
-          .then((response) => {
+    async loginWithFacebook(context, params) {
+        try {
+            let response = await authService.loginWithFacebook(params)
             context.commit('updateIsAuthenticated', response)
-            return resolve(response)
-          })
-          .catch((response) => {
-            return resolve(response)
-          })
-      })
+            return response
+        } catch(error) {
+            return resolve(error.response)
+        }
     }
   },
   getters: {

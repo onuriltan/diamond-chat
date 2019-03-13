@@ -6,16 +6,12 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
-const router = require('./app/routes');
 
 // Environment Variables
 const dotenv = require ('dotenv');
 dotenv.config();
 
-// Auth Config
-require('./app/config/PassportConfig');
-
-
+// Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
@@ -49,6 +45,7 @@ io.on('connection', function(socket) {
 
 
 // Load Routes
+const router = require('./app/routes');
 router(app);
 
 const port = process.env.PORT || 5000;

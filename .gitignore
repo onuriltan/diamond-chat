@@ -1,8 +1,9 @@
-package-lock.json
+server/package-lock.json
 
 .DS_Store
 node_modules
 /dist
+/server/build
 
 # local env files
 .env.local
@@ -24,4 +25,4 @@ yarn-error.log*
 *.sw*
 
 # Env file
-/.env
+/server/.env

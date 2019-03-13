@@ -20,9 +20,9 @@ const AuthStore = {
     },
   },
   actions: {
-    loginWithFacebook(context, token) {
+    loginWithFacebook(context, params) {
       return new Promise(resolve => {
-        authService.loginWithFacebook(token)
+        authService.loginWithFacebook(params)
           .then((response) => {
             context.commit('updateIsAuthenticated', response)
             return resolve(response)

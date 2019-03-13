@@ -1,9 +1,15 @@
-const passport = require('passport');
+const axios = require('axios')
 
-exports.loginWithFacebook = passport.authenticate('facebook-token'), async function (req, res, next) {
-    if (req.user) {
-        console.log(req.user)
-    } else {
-        res.status(401);
-    }
+exports.loginWithFacebook = async function (req, res, next) {
+
+    const {userID, grantedScopes, accessToken } = req.body;
+    console.log(userID, grantedScopes, accessToken)
+
+    axios.get(`https://graph.facebook.com/${userID}?fields=${grantedScopes}&access_token=${accessToken}`)
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error.response.data);
+        });
 };

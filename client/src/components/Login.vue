@@ -49,7 +49,13 @@
         this.fbLoginClicked = true
         FB.login(function (response) {
           if (response.authResponse) {
-            this.loginWithFacebook(response.authResponse.accessToken)
+            let { grantedScopes } = response.authResponse;
+            grantedScopes = grantedScopes.replace(/user_/g, '')
+            grantedScopes = grantedScopes.replace(/public_profile/g, '')
+            grantedScopes = grantedScopes.slice(0, -1)
+            console.log(grantedScopes)
+            const {userID, accessToken } = response.authResponse;
+            this.loginWithFacebook({userID, grantedScopes, accessToken })
           } else {
             console.log('User cancelled login or did not fully authorize.')
           }

@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-const url = process.env.VUE_APP_AUTH_URL
+const url = process.env.VUE_APP_AUTH_URL;
 
 class AuthService {
-  static loginWithFacebook (token) {
+  static loginWithFacebook (params) {
     return new Promise(async (resolve) => {
       try {
-        const res = await axios.post(`${url}/facebook`, { access_token: token })
+        const res = await axios.post(`${url}/facebook`, params);
         resolve(res)
       } catch (e) {
         resolve(e.response)

@@ -12,15 +12,18 @@ const router = require('./app/routes');
 const dotenv = require ('dotenv');
 dotenv.config();
 
+// Auth Config
+require('./app/config/PassportConfig');
+
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-/*mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
     .then(() => console.log('MongoDB connected.'))
-    .catch(err => console.log(err));*/
+    .catch(err => console.log(err));
 
-require('./app/config/PassportConfig');
 
 io.on('connection', function(socket) {
     socket.on('SEND_MESSAGE', function(data) {
@@ -43,11 +46,6 @@ io.on('connection', function(socket) {
         console.log('disconnected')
     })
 });
-
-app.get('/', function(req, res){
-    res.send('Welcome');
-});
-
 
 
 // Load Routes

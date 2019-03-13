@@ -1,14 +1,13 @@
-import express = require('express');
+import express from "express";
 
-// Create a new express application instance
-const app: express.Application = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
+const app = express();
+let http = require("http").Server(app);
+let io = require("socket.io")(http);
 
 // Environment Variables
 const dotenv = require ('dotenv');

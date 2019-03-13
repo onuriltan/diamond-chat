@@ -60,7 +60,7 @@
             console.log('User cancelled login or did not fully authorize.')
           }
           this.fbLoginClicked = false
-        }.bind(this), {scope: 'public_profile, email, user_gender, user_age_range', return_scopes: true})
+        }.bind(this), {scope: 'public_profile, email, user_gender, user_age_range, user_birthday', return_scopes: true})
       }
     }
   }

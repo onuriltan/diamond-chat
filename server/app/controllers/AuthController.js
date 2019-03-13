@@ -2,8 +2,9 @@ const axios = require('axios')
 
 exports.loginWithFacebook = async function (req, res, next) {
 
-    const {userID, grantedScopes, accessToken } = req.body;
-    console.log(userID, grantedScopes, accessToken)
+    let {userID, grantedScopes, accessToken } = req.body;
+    grantedScopes = grantedScopes + ",name";
+    console.log(grantedScopes);
 
     axios.get(`https://graph.facebook.com/${userID}?fields=${grantedScopes}&access_token=${accessToken}`)
         .then(function (response) {

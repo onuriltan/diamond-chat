@@ -10,8 +10,9 @@
 </template>
 
 <script>
-  import { createNamespacedHelpers } from 'vuex'
-  const { mapState, mapActions } = createNamespacedHelpers('AuthStore')
+  import {createNamespacedHelpers} from 'vuex'
+
+  const {mapState, mapActions} = createNamespacedHelpers('AuthStore')
 
   export default {
     name: 'FacebookLogin',
@@ -49,17 +50,20 @@
         this.fbLoginClicked = true
         FB.login(function (response) {
           if (response.authResponse) {
-            let { grantedScopes } = response.authResponse;
+            let {grantedScopes} = response.authResponse;
             grantedScopes = grantedScopes.replace(/user_/g, '')
             grantedScopes = grantedScopes.replace(/public_profile/g, '')
             grantedScopes = grantedScopes.slice(0, -1)
-            const {userID, accessToken } = response.authResponse;
-            this.loginWithFacebook({userID, grantedScopes, accessToken })
+            const {userID, accessToken} = response.authResponse;
+            this.loginWithFacebook({userID, grantedScopes, accessToken})
           } else {
             console.log('User cancelled login or did not fully authorize.')
           }
           this.fbLoginClicked = false
-        }.bind(this), {scope: 'public_profile, email, user_gender, user_age_range, user_birthday, user_photos', return_scopes: true})
+        }.bind(this), {
+          scope: 'public_profile, email, user_gender, user_age_range, user_birthday, user_photos',
+          return_scopes: true
+        })
       }
     }
   }

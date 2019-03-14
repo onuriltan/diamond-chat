@@ -6,7 +6,7 @@ Vue.use(Router);
 
 async function requireAuth(to, from, next) {
     function proceed() {
-        if (!authStore.getters.isAuthenticated()) {
+        if (authStore.getters.isAuthenticated()) {
             next();
         } else {
             next('/login');

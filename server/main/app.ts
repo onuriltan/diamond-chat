@@ -15,8 +15,7 @@ export class ChatServer {
     private mongoURL: string;
     private app: express.Application;
     private server: Server;
-    private io: SocketIO.Server;
-
+    private io: socketIo.Server;
 
     constructor() {
         this.createApp();
@@ -29,7 +28,6 @@ export class ChatServer {
         this.app = express();
         this.server = createServer(this.app);
         this.io = socketIo(this.server);
-
     }
 
     private config(): void {

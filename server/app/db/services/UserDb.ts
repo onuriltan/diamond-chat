@@ -1,12 +1,12 @@
 import * as mongoose from "mongoose";
 import {UserSchema} from '../models/UserModel';
-import {FacebookData} from "../../models/FacebookModel";
+import {FacebookData} from "../../models/FacebookResponse";
 
 const User = mongoose.model('User', UserSchema);
 
 export default class UserDb {
 
-    public static async getUser(email: string) {
+    public static getUser(email: string) {
         return User.findOne({email})
     }
 

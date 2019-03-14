@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from "express";
 import axios from 'axios';
-import {FacebookData} from "../models/FacebookModel";
+import {FacebookData} from "../models/FacebookResponse";
 import userDb from '../db/services/UserDb';
 
 

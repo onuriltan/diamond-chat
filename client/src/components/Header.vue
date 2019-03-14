@@ -18,7 +18,6 @@
 </template>
 
 <script>
-
   export default {
     name: 'Header',
     data () {
@@ -28,12 +27,8 @@
     },
     watch:{
       $route (to, from){
-        if(to.path === "/login") this.showRouterLink = false
-        else this.showRouterLink = true
+        this.showRouterLink = to.path !== "/login";
       }
-    },
-    mounted() {
-      console.log(this.$router.currentRoute)
     }
   };
 </script>

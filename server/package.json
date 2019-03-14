@@ -4,10 +4,10 @@
   "description": "Chat App with Node.js Vue.js",
   "main": "main/app.ts",
   "scripts": {
-    "start": "node build/server.js",
+    "start": "node build/index.js",
     "dev": "npm run build:live",
     "build": "tsc -p .",
-    "build:live": "nodemon --watch '*.ts' --exec 'ts-node' main/server.ts",
+    "build:live": "nodemon --watch '*.ts' --exec 'ts-node' main/index.ts",
     "tsc": "tsc"
   },
   "author": "Onur Iltan",

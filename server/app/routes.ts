@@ -1,15 +1,15 @@
 import express from "express";
-import {Request, Response} from "express";
+import {Request, Response, Application} from "express";
 
 // Controllers
-const authController = require('./controllers/AuthController');
+import authController from './controllers/AuthController';
 
 export class Routes {
-    public routes(app: express.Application): void {
+    public static routes(app: Application): void {
         let apiRoutes = express.Router();
         let authRoutes = express.Router();
 
-        app.get('/', function(req : express.Request, res : express.Response){
+        app.get('/', function(req : Request, res : Response){
             res.send('Hello Guys');
         });
 
@@ -21,19 +21,3 @@ export class Routes {
         app.use('/api', apiRoutes);
     }
 }
-
-/*module.exports = function (app : express.Application) {
-    let apiRoutes = express.Router();
-    let authRoutes = express.Router();
-
-    app.get('/', function(req : express.Request, res : express.Response){
-        res.send('Hello Guys');
-    });
-
-    // Auth Routes
-    apiRoutes.use('/auth', authRoutes);
-    authRoutes.post('/facebook', authController.loginWithFacebook);
-
-    // Base route
-    app.use('/api', apiRoutes);
-};*/

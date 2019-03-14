@@ -9,7 +9,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <router-link to="/login">
-            <b-button v-if="showRouterLink">Login</b-button>
+            <b-button class="navbar-container__navbar__button" v-if="showRouterLink">Login</b-button>
           </router-link>
         </b-nav-form>
       </b-navbar-nav>

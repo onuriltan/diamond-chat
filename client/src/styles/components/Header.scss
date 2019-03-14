@@ -15,6 +15,9 @@
         height: 40px;
       }
     }
+    &__button {
+      @extend %custom-button
+    }
   }
 }
 

@@ -1,27 +1,18 @@
+'use strict';
+
 import express from "express";
+import {Routes} from "../app/routes";
+import mongoose from "mongoose";
+import cors from "cors";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import io from "socket.io";
+import dotenv from "dotenv";
 
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
+//let http = require("http").Server(app);
+//let io = require("socket.io")(http);
 
-const app = express();
-let http = require("http").Server(app);
-let io = require("socket.io")(http);
-
-// Environment Variables
-const dotenv = require ('dotenv');
-dotenv.config();
-
-// Middleware
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(cors());
-
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
-    .then(() => console.log('MongoDB connected.'))
-    .catch((err: any) => console.log(err));
-
+/*
 
 io.on('connection', function(socket: any) {
     socket.on('SEND_MESSAGE', function(data: { user: string; message: string; }) {
@@ -45,13 +36,35 @@ io.on('connection', function(socket: any) {
     })
 });
 
+*/
 
-// Load Routes
-const router = require('../app/routes');
-router(app);
 
-const port = process.env.PORT || 5000;
-http.listen(port, function(){
-    console.log(`Server started at port ${port}`)
-});
 
+class App {
+    public app: express.Application;
+    public routePrv: Routes = new Routes();
+    public mongoURL: string = "";
+
+    constructor() {
+        this.app = express();
+        this.config();
+        this.routePrv.routes(this.app);
+    }
+
+    private config(): void {
+        dotenv.config();
+        this.mongoURL = process.env["MONGO_URL"] as string;
+        this.app.use(bodyParser.json());
+        this.app.use(cookieParser());
+        this.app.use(cors());
+        this.mongoSetup();
+    }
+
+    private mongoSetup(): void {
+        mongoose.Promise = global.Promise;
+        mongoose.connect(this.mongoURL, {useNewUrlParser: true});
+    }
+
+}
+
+export default new App().app;

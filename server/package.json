@@ -4,16 +4,21 @@
   "description": "Chat App with Node.js Vue.js",
   "main": "main/app.ts",
   "scripts": {
-    "start": "node build/app.js",
+    "start": "node build/server.js",
     "dev": "npm run build:live",
     "build": "tsc -p .",
-    "build:live": "nodemon --watch '*.ts' --exec 'ts-node' main/app.ts",
+    "build:live": "nodemon --watch '*.ts' --exec 'ts-node' main/server.ts",
     "tsc": "tsc"
   },
   "author": "Onur Iltan",
   "license": "MIT",
   "dependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/cors": "^2.8.4",
+    "@types/dotenv": "^6.1.0",
     "@types/express": "^4.16.1",
+    "@types/mongoose": "^5.3.22",
     "@types/socket.io": "^2.1.2",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.4",
@@ -32,6 +37,7 @@
     "typescript": "^3.3.3333"
   },
   "devDependencies": {
+    "@types/node": "^11.11.3",
     "nodemon": "^1.18.10",
     "ts-node": "^8.0.3"
   }

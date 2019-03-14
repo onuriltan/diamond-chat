@@ -5,16 +5,19 @@ Vue.use(Router);
 
 const Chat = () => import('./views/ChatView.vue');
 const Login = () => import('./views/LoginView.vue');
+const NotFound = () => import('./views/NotFoundView.vue');
 
 export default new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes: [
     {
       path: '/login', name: 'login', component: Login,
     },
     {
       path: '/chat', name: 'chat', component: Chat,
+    },
+    {
+      path: '*', name: 'notfound', component: NotFound,
     },
   ],
 });

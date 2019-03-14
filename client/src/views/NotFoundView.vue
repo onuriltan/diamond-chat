@@ -22,8 +22,10 @@
         min-height: calc(50vh);
 
         &__statement {
+            text-align: center;
             font-size: 32px;
             color: white;
+            font-weight: bold;
         }
     }
 

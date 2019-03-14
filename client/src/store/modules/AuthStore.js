@@ -18,6 +18,21 @@ const AuthStore = {
         setTimeout(() => { router.push('/login') }, 2000)
       }
     },
+    loadUser (state) {
+      let token = window.localStorage.getItem('token')
+      let unixTimeStamp = new Date().getTime() / 1000
+      let expiration = null
+      if (token != null) {
+        expiration = jwtDecode(token).exp
+      }else {
+        state.isAuthenticated = false
+        state.sessionExpired = true
+      }
+      if (expiration != null && parseInt(expiration) - unixTimeStamp > 0) {
+        state.isAuthenticated = true
+        state.sessionExpired = false
+      }
+    }
   },
   actions: {
     async loginWithFacebook(context, params) {
@@ -26,9 +41,12 @@ const AuthStore = {
             context.commit('updateIsAuthenticated', response)
             return response
         } catch(error) {
-            return resolve(error.response)
+            return error.response
         }
-    }
+    },
+    loadUser (context) {
+      context.commit('loadUser')
+    },
   },
   getters: {
     isAuthenticated () {

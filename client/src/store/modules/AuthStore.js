@@ -1,5 +1,6 @@
 import authService from '../../services/auth.service'
 import router from '../../router'
+import jwtDecode from 'jwt-decode'
 
 const AuthStore = {
   namespaced: true,

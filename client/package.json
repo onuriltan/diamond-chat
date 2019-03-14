@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.13",
+    "jwt-decode": "^2.2.0",
     "particles.js": "^2.0.0",
     "register-service-worker": "^1.5.2",
     "socket.io-client": "^2.2.0",

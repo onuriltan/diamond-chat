@@ -1,17 +1,14 @@
-import * as mongoose from "mongoose";
-import {UserSchema} from '../models/UserModel';
-import {FacebookData} from "../../models/FacebookResponse";
-
-const User = mongoose.model('User', UserSchema);
+import UserModel from '../models/UserModel';
+import IFacebookResponse from "../../models/interfaces/IFacebookResponse";
 
 export default class UserDb {
 
-    public static getUser(email: string) {
-        return User.findOne({email})
+    public static async getUser(email: string) {
+        return UserModel.findOne({email})
     }
 
-    public static async addUser(data: FacebookData) {
-        const newUser = new User({
+    public static async addUser(data: IFacebookResponse) {
+        const newUser = new UserModel({
             email: data.email,
             name: data.name,
             birthday: data.birthday,
@@ -19,7 +16,6 @@ export default class UserDb {
             gender: data.gender,
             role: 'user',
         });
-        await newUser.save();
-        return newUser;
+        return await newUser.save();
     }
 }

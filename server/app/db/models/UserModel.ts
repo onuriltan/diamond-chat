@@ -1,6 +1,7 @@
-import * as mongoose from "mongoose";
+import mongoose, { Schema } from 'mongoose';
+import IUser from "../../models/interfaces/IUser";
 
-export const UserSchema = new mongoose.Schema({
+const UserSchema: Schema = new Schema({
     email: {
         type: String,
         lowercase: true,
@@ -36,3 +37,6 @@ export const UserSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+export default mongoose.model<IUser>("User", UserSchema);
+

@@ -11,7 +11,6 @@ import socketIo from 'socket.io';
 
 export class ChatServer {
     public static readonly PORT: number = process.env["PORT"] as unknown as number || 5000;
-    private routePrv: Routes = new Routes();
     private mongoURL: string;
     private app: express.Application;
     private server: Server;

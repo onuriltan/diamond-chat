@@ -1,4 +1,4 @@
-export interface FacebookData {
+export default interface IFacebookResponse {
     email: string
     name: string
     birthday: string

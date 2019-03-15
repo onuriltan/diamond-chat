@@ -1,5 +1,7 @@
 export default interface ILoginResponse {
-    email: string;
-    role: string;
-    token: string
+    email?: string;
+    role?: string;
+    gender?: string;
+    age?: number;
+    token?: string;
 }

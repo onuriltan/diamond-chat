@@ -3,6 +3,7 @@ import axios from 'axios';
 import userDb from '../db/services/UserDb';
 import IUser from '../models/interfaces/IUser';
 import jwtHelper from '../helpers/JwtHelper';
+import helper from '../helpers/GeneralHelper';
 import JwtSignImpl from '../models/implementations/JwtSign';
 import FacebookResponse from "../models/implementations/FacebookResponse";
 import LoginResponse from "../models/implementations/LoginResponse";
@@ -41,7 +42,8 @@ export default class AuthController {
     private static sendToken(user: IUser, res: Response) {
         let jwtSign: JwtSignImpl = new JwtSignImpl(user.email, user.role);
         let token = jwtHelper.generateToken(jwtSign);
-        let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, token);
+        let age = helper.calculateAge(user.birthday);
+        let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, user.gender, age, token);
         return res.status(200).send(loginResponse);
     }
 

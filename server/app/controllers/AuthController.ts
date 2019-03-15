@@ -5,6 +5,7 @@ import IUser from '../models/interfaces/IUser';
 import jwtHelper from '../helpers/JwtHelper';
 import JwtSignImpl from '../models/implementations/JwtSign';
 import FacebookResponse from "../models/implementations/FacebookResponse";
+import LoginResponse from "../models/implementations/LoginResponse";
 
 export default class AuthController {
 
@@ -40,7 +41,8 @@ export default class AuthController {
     private static sendToken(user: IUser, res: Response) {
         let jwtSign: JwtSignImpl = new JwtSignImpl(user.email, user.role);
         let token = jwtHelper.generateToken(jwtSign);
-        return res.status(200).send({token, user});
+        let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, token);
+        return res.status(200).send(loginResponse);
     }
 
 }

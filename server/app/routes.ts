@@ -8,10 +8,11 @@ export class Routes {
     public static routes(app: Application): void {
         let apiRoutes = express.Router();
         let authRoutes = express.Router();
-
-        app.get('/', function(req : Request, res : Response){
-            res.send('Hello Guys');
-        });
+        // Static folder
+        app.use(express.static(__dirname + '/public'));
+        // Handle SPA
+        app.get('*', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+        app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
         // Auth Routes
         apiRoutes.use('/auth', authRoutes);

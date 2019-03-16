@@ -9,23 +9,25 @@ const AuthStore = {
     sessionExpired: false
   },
   mutations: {
-    updateIsAuthenticated (state, response) {
+    updateIsAuthenticated(state, response) {
       if (response.status === 200) {
         window.localStorage.setItem('token', response.data.token)
         state.isAuthenticated = true
         state.sessionExpired = false
         router.push('/dashboard')
       } else {
-        setTimeout(() => { router.push('/login') }, 2000)
+        setTimeout(() => {
+          router.push('/login')
+        }, 2000)
       }
     },
-    loadUser (state) {
+    loadUser(state) {
       let token = window.localStorage.getItem('token')
       let unixTimeStamp = new Date().getTime() / 1000
       let expiration = null
       if (token != null) {
         expiration = jwtDecode(token).exp
-      }else {
+      } else {
         state.isAuthenticated = false
         state.sessionExpired = true
       }
@@ -37,23 +39,23 @@ const AuthStore = {
   },
   actions: {
     async loginWithFacebook(context, params) {
-        try {
-            let response = await authService.loginWithFacebook(params)
-            context.commit('updateIsAuthenticated', response)
-            return response
-        } catch(error) {
-            return error.response
-        }
+      try {
+        let response = await authService.loginWithFacebook(params)
+        context.commit('updateIsAuthenticated', response)
+        return response
+      } catch (error) {
+        return error.response
+      }
     },
-    loadUser (context) {
+    loadUser(context) {
       context.commit('loadUser')
     },
   },
   getters: {
-    isAuthenticated () {
+    isAuthenticated() {
       return this.state.AuthStore.isAuthenticated
     },
-    sessionExpired () {
+    sessionExpired() {
       return this.state.AuthStore.sessionExpired
     }
   }

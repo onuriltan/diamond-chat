@@ -3,8 +3,10 @@ import axios from 'axios';
 import userDb from '../db/services/UserDb';
 import IUser from '../models/interfaces/IUser';
 import jwtHelper from '../helpers/JwtHelper';
+import helper from '../helpers/GeneralHelper';
 import JwtSignImpl from '../models/implementations/JwtSign';
 import FacebookResponse from "../models/implementations/FacebookResponse";
+import LoginResponse from "../models/implementations/LoginResponse";
 
 export default class AuthController {
 
@@ -24,6 +26,7 @@ export default class AuthController {
         } catch (error) {
             return res.status(400).send(error.response)
         }
+
     }
 
 
@@ -41,11 +44,13 @@ export default class AuthController {
         let jwtSign: JwtSignImpl = new JwtSignImpl(user.email, user.role);
         let token = jwtHelper.generateToken(jwtSign);
         const cookieOptions: object = {
-            httpOnly: true,
-            expires: 0
+            httpOnly: false,
+            secure:false
         };
-        res.cookie('accessToken', token, cookieOptions);
-        return res.status(200).send({ user });
+        let age = helper.calculateAge(user.birthday);
+        let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, user.gender, age);
+        res.cookie("Set-Cookie" , token, cookieOptions);
+        return res.send(loginResponse);
     }
 
 }

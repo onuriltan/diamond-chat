@@ -17,6 +17,7 @@ async function requireAuth(to, from, next) {
 }
 
 const Home = () => import('./views/HomeView.vue');
+const Dashboard = () => import('./views/DashboardView.vue');
 const Chat = () => import('./views/ChatView.vue');
 const Login = () => import('./views/LoginView.vue');
 const NotFound = () => import('./views/NotFoundView.vue');
@@ -29,6 +30,9 @@ export default new Router({
     },
     {
       path: '/login', name: 'login', component: Login,
+    },
+    {
+      path: '/dashboard', name: 'dashboard', component: Dashboard,
     },
     {
       path: '/chat', name: 'chat', component: Chat,

@@ -40,7 +40,12 @@ export default class AuthController {
     private static sendToken(user: IUser, res: Response) {
         let jwtSign: JwtSignImpl = new JwtSignImpl(user.email, user.role);
         let token = jwtHelper.generateToken(jwtSign);
-        return res.status(200).send({token, user});
+        const cookieOptions: object = {
+            httpOnly: true,
+            expires: 0
+        };
+        res.cookie('accessToken', token, cookieOptions);
+        return res.status(200).send({ user });
     }
 
 }

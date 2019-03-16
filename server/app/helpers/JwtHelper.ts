@@ -32,7 +32,7 @@ export default class JwtHelper {
 
     public static generateToken(jwtSignModel: IJwtSign) {
         return jwt.sign({jwtSignModel}, process.env.JWT_SECRET as string, {
-                expiresIn: process.env["TOKEN_EXPIRY"]
+                expiresIn: process.env.TOKEN_EXPIRY
         });
     }
 }

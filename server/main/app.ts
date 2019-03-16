@@ -4,13 +4,13 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import {createServer, Server} from 'http';
 import socketIo from 'socket.io';
 
 
 export class ChatServer {
-    public static readonly PORT: number = process.env["PORT"] as unknown as number || 5000;
+    public static readonly PORT: number = process.env.PORT as unknown as number || 5000;
     private mongoURL: string;
     private app: express.Application;
     private server: Server;
@@ -38,9 +38,16 @@ export class ChatServer {
     }
 
     private mongoSetup(): void {
-        this.mongoURL = process.env["MONGO_URL"] as string;
+        this.mongoURL = process.env.MONGO_URL as string;
         mongoose.Promise = global.Promise;
-        mongoose.connect(this.mongoURL, {useNewUrlParser: true});
+        mongoose.set('useCreateIndex', true);
+        mongoose.connect(this.mongoURL, {useNewUrlParser: true})
+            .then(() => {
+                console.log("MongoDb Connected");
+            })
+            .catch((error) => {
+            console.log(error);
+        });
     }
 
     private listen(): void {

@@ -1,18 +1,30 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import authStore from '../src/store/modules/AuthStore';
+import store from '../src/store/index';
 
 Vue.use(Router);
 
 async function requireAuth(to, from, next) {
   function proceed() {
-    if (authStore.getters.isAuthenticated()) {
+    if (store.getters["AuthStore/isAuthenticated"]) {
       next();
     } else {
       next('/login');
     }
   }
-  await authStore.dispatch('loadUser');
+  await store.dispatch('AuthStore/loadUser')
+  proceed()
+}
+
+async function alreadyLoggedIn (to, from, next) {
+  function proceed () {
+    if (store.getters["AuthStore/isAuthenticated"]) {
+      next('/')
+    } else {
+      next('/dashboard')
+    }
+  }
+  await store.dispatch('AuthStore/loadUser')
   proceed()
 }
 
@@ -29,13 +41,13 @@ export default new Router({
       path: '/', name: 'home', component: Home,
     },
     {
-      path: '/login', name: 'login', component: Login,
+      path: '/login', name: 'login', component: Login
     },
     {
-      path: '/dashboard', name: 'dashboard', component: Dashboard,
+      path: '/dashboard', name: 'dashboard', component: Dashboard, beforeEnter: requireAuth
     },
     {
-      path: '/chat', name: 'chat', component: Chat,
+      path: '/chat', name: 'chat', component: Chat, beforeEnter: requireAuth
     },
     {
       path: '*', name: 'notfound', component: NotFound,

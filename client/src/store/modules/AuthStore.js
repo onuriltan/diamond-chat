@@ -13,9 +13,9 @@ const AuthStore = {
   mutations: {
     updateIsAuthenticated(state, response) {
       if (response.status === 200) {
+        router.push('/dashboard')
         state.isAuthenticated = true
         state.sessionExpired = false
-        router.push('/dashboard')
       } else {
         setTimeout(() => {
           router.push('/login')
@@ -35,11 +35,6 @@ const AuthStore = {
       if (expiration != null && parseInt(expiration) - unixTimeStamp > 0) {
         state.isAuthenticated = true
         state.sessionExpired = false
-      }
-      if (expiration != null && parseInt(expiration) - unixTimeStamp < 0) {
-        state.isAuthenticated = false
-        state.sessionExpired = true
-        cookieResource.removeCookie(process.env.VUE_APP_JWT_COOKIE_NAME)
       }
     },
     deleteAccessToken () {
@@ -70,11 +65,11 @@ const AuthStore = {
     },
   },
   getters: {
-    isAuthenticated() {
-      return this.state.AuthStore.isAuthenticated
+    isAuthenticated : state =>  {
+      return state.isAuthenticated
     },
-    sessionExpired() {
-      return this.state.AuthStore.sessionExpired
+    sessionExpired: state => {
+      return state.sessionExpired
     }
   }
 };

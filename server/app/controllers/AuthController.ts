@@ -44,12 +44,13 @@ export default class AuthController {
         let jwtSign: JwtSignImpl = new JwtSignImpl(user.email, user.role);
         let token = jwtHelper.generateToken(jwtSign);
         const cookieOptions: object = {
-            httpOnly: false,
-            secure:false
+            httpOnly: true,
+            secure: false,
+            maxAge: process.env.TOKEN_EXPIRY
         };
         let age = helper.calculateAge(user.birthday);
         let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, user.gender, age);
-        res.cookie("Set-Cookie" , token, cookieOptions);
+        res.cookie("Access-Token" , token, cookieOptions);
         return res.send(loginResponse);
     }
 

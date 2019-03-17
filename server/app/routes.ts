@@ -5,6 +5,7 @@ import {Request, Response, Application} from "express";
 import authController from './controllers/AuthController';
 
 export class Routes {
+
     public static routes(app: Application): void {
         let apiRoutes = express.Router();
         let authRoutes = express.Router();

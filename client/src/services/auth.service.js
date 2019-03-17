@@ -7,7 +7,6 @@ class AuthService {
     return new Promise(async (resolve) => {
       try {
         const res = await axios.post(`${url}/facebook`, params,  {withCredentials: true});
-        console.log(res)
         resolve(res)
       } catch (e) {
         resolve(e.response)

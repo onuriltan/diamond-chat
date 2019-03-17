@@ -34,7 +34,6 @@ export class ChatServer {
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
         this.app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
-        this.app.options('*', cors());
         Routes.routes(this.app);
     }
 

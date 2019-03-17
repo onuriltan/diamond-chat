@@ -17,6 +17,7 @@ export default class AuthController {
         try {
             response = await axios.get(`https://graph.facebook.com/${userID}?fields=${grantedScopes}&access_token=${accessToken}`);
             let fbRes: FacebookResponse = new FacebookResponse(response.data);
+            console.log(fbRes);
             let existingUser = await userDb.getUser(fbRes.email);
             if (existingUser) {
                 AuthController.sendToken(existingUser, res);
@@ -24,11 +25,9 @@ export default class AuthController {
                 await AuthController.addUser(fbRes, res);
             }
         } catch (error) {
-            return res.status(400).send(error.response)
+            return res.status(400).send(error.response.data)
         }
-
     }
-
 
     private static async addUser(fbRes: FacebookResponse, res: Response) {
         let user: IUser = await userDb.addUser(fbRes);
@@ -43,14 +42,18 @@ export default class AuthController {
     private static sendToken(user: IUser, res: Response) {
         let jwtSign: JwtSignImpl = new JwtSignImpl(user.email, user.role);
         let token = jwtHelper.generateToken(jwtSign);
+        // @ts-ignore
+        let secure: boolean = helper.convertToBoolean(process.env['COOKIE_SECURE']);
+        // @ts-ignore
+        let maxAge: number = helper.convertToNumber(process.env['TOKEN_EXPIRY']);
         const cookieOptions: object = {
             httpOnly: true,
-            secure: false,
-            maxAge: process.env.TOKEN_EXPIRY
+            secure,
+            maxAge
         };
         let age = helper.calculateAge(user.birthday);
         let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, user.gender, age);
-        res.cookie("Access-Token" , token, cookieOptions);
+        res.cookie(process.env["JWT_NAME"] as string , token, cookieOptions);
         return res.send(loginResponse);
     }
 

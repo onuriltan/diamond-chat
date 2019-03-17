@@ -6,5 +6,21 @@ export default class GeneralHelper {
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
+    public static convertToBoolean(input: string): boolean | undefined {
+        try {
+            return JSON.parse(input);
+        } catch (e) {
+            return undefined;
+        }
+    }
+
+    public static convertToNumber(input: string): number | undefined {
+        try {
+            return JSON.parse(input);
+        } catch (e) {
+            return undefined;
+        }
+    }
+
 
 }

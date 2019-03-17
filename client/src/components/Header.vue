@@ -9,8 +9,9 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <router-link to="/login">
-            <b-button class="navbar-container__navbar__button" v-if="showRouterLink">Login</b-button>
+            <b-button class="navbar-container__navbar__button" v-if="showLoginLink">Login</b-button>
           </router-link>
+          <b-button class="navbar-container__navbar__button" v-if="showLogoutLink" @click="logout">Logout</b-button>
         </b-nav-form>
       </b-navbar-nav>
     </b-navbar>
@@ -18,16 +19,43 @@
 </template>
 
 <script>
+  import {createNamespacedHelpers} from 'vuex'
+  const {mapState, mapActions} = createNamespacedHelpers('AuthStore')
+
   export default {
     name: 'Header',
-    data () {
+    data() {
       return {
-        showRouterLink: false
+        isLoginScreen: false
       }
     },
-    watch:{
-      $route (to, from){
-        this.showRouterLink = to.path !== "/login";
+    methods: {
+      ...mapActions(['logout']),
+    },
+    computed: {
+      ...mapState(['isAuthenticated']),
+      showLoginLink() {
+        if (this.isAuthenticated) {
+          return false
+        } else if (this.isLoginScreen) {
+          return false
+        } else {
+          return true
+        }
+      },
+      showLogoutLink() {
+        if (this.isAuthenticated) {
+          return true
+        } else if (this.isLoginScreen) {
+          return false
+        } else {
+          return false
+        }
+      }
+    },
+    watch: {
+      $route(to, from) {
+        this.isLoginScreen = to.path === "/login";
       }
     }
   };

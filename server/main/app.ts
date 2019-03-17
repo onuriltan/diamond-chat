@@ -2,6 +2,7 @@ import express from "express";
 import {Routes} from "../app/routes";
 import mongoose from "mongoose";
 import cors from "cors";
+import logger from "morgan";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import * as dotenv from "dotenv";
@@ -33,7 +34,8 @@ export class ChatServer {
         dotenv.config();
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
-        this.app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
+        this.app.use(cors({credentials: true, origin: process.env["CLIENT_ORIGIN"]}));
+        this.app.use(logger('tiny')); // Log requests to API using morgan
         Routes.routes(this.app);
     }
 

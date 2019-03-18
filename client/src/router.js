@@ -6,25 +6,25 @@ Vue.use(Router);
 
 async function requireAuth(to, from, next) {
   function proceed() {
-    if (store.getters["AuthStore/isAuthenticated"]) {
+    if (store.getters["auth/isAuthenticated"]) {
       next();
     } else {
       next('/login');
     }
   }
-  await store.dispatch('AuthStore/loadUser')
+  await store.dispatch('auth/loadUser')
   proceed()
 }
 
 async function alreadyLoggedIn (to, from, next) {
   function proceed () {
-    if (store.getters["AuthStore/isAuthenticated"]) {
+    if (store.getters["auth/isAuthenticated"]) {
       next('/')
     } else {
       next('/dashboard')
     }
   }
-  await store.dispatch('AuthStore/loadUser')
+  await store.dispatch('auth/loadUser')
   proceed()
 }
 

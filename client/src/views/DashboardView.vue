@@ -6,7 +6,7 @@
 <script>
   import {createNamespacedHelpers} from 'vuex'
 
-  const {mapState} = createNamespacedHelpers('AuthStore')
+  const {mapState} = createNamespacedHelpers('auth')
   export default {
     name: 'DashboardView',
     computed: {

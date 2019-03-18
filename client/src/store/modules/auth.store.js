@@ -4,7 +4,7 @@ import cookieResource from '../../resources/cookie.resource'
 import router from '../../router'
 import jwtDecode from 'jwt-decode'
 
-const AuthStore = {
+const auth = {
   namespaced: true,
   state: {
     isAuthenticated: false,
@@ -74,5 +74,5 @@ const AuthStore = {
   }
 };
 
-export default AuthStore
+export default auth
 

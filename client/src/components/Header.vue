@@ -20,7 +20,7 @@
 
 <script>
   import {createNamespacedHelpers} from 'vuex'
-  const {mapState, mapActions} = createNamespacedHelpers('AuthStore')
+  const {mapState, mapActions} = createNamespacedHelpers('auth')
 
   export default {
     name: 'Header',

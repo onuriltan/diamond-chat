@@ -1,19 +1,16 @@
 import express from "express";
-import {Request, Response, Application} from "express";
+import {Application} from "express";
+import {Server} from 'socket.io';
 
 // Controllers
 import authController from './controllers/AuthController';
+import chatController from './controllers/ChatController';
 
 export class Routes {
 
     public static routes(app: Application): void {
         let apiRoutes = express.Router();
         let authRoutes = express.Router();
-        // Static folder
-        //app.use(express.static(__dirname + '/public'));
-        // Handle SPA
-        // app.get('*', (req, res) => res.sendFile(__dirname + '/public/index.html'));
-        // app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
         // Auth Routes
         apiRoutes.use('/auth', authRoutes);
@@ -21,5 +18,9 @@ export class Routes {
 
         // Base route
         app.use('/api', apiRoutes);
+    }
+
+    public static chat(io: Server): void {
+        chatController.chat(io);
     }
 }

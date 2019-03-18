@@ -8,13 +8,23 @@ const auth = {
   namespaced: true,
   state: {
     isAuthenticated: false,
-    sessionExpired: false
+    sessionExpired: false,
+    firstName: '',
+    fullName: '',
+    age: '',
+    email: '',
+    gender: ''
   },
   mutations: {
     updateIsAuthenticated(state, response) {
       if (response.status === 200) {
         router.push('/dashboard')
         state.isAuthenticated = true
+        state.firstName = response.data.firstName
+        state.fullName = response.data.fullName
+        state.age = response.data.age
+        state.email = response.data.email
+        state.gender = response.data.gender
         state.sessionExpired = false
       } else {
         setTimeout(() => {
@@ -31,11 +41,19 @@ const auth = {
       } else {
         state.isAuthenticated = false
         state.sessionExpired = true
+        this.clearUserInfo()
       }
       if (expiration != null && parseInt(expiration) - unixTimeStamp > 0) {
         state.isAuthenticated = true
         state.sessionExpired = false
       }
+    },
+    clearUserInfo (state) {
+      state.firstName = ''
+      state.fullName = ''
+      state.age = ''
+      state.email = ''
+      state.gender = ''
     },
     deleteAccessToken () {
       cookieResource.removeCookie(process.env.VUE_APP_JWT_COOKIE_NAME)
@@ -58,6 +76,7 @@ const auth = {
     async logout(context) {
         context.commit('unAuthUser')
         context.commit('deleteAccessToken')
+        context.commit('clearUserInfo')
         router.push('/login')
     },
     loadUser(context) {

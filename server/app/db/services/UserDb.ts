@@ -10,7 +10,8 @@ export default class UserDb {
     public static async addUser(data: IFacebookResponse) {
         const newUser = new UserModel({
             email: data.email,
-            name: data.name,
+            fullName: data.name,
+            firstName: data.first_name,
             birthday: data.birthday,
             fbId: data.id,
             gender: data.gender,

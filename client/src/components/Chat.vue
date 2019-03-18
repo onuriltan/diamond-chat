@@ -22,20 +22,17 @@
             <b-btn type="submit" class="chat-dashboard__message-form__button">Send</b-btn>
           </b-input-group-append>
         </b-input-group>
-
       </form>
-
     </div>
-
   </div>
 </template>
 
 <script>
 import io from 'socket.io-client';
-import BFormInput from "bootstrap-vue/src/components/form-input/form-input";
+import {createNamespacedHelpers} from 'vuex'
+const {mapState} = createNamespacedHelpers('auth')
 
 export default {
-  components: {BFormInput},
   data() {
     return {
       socket: io(process.env.VUE_APP_SOCKET_URL),
@@ -45,6 +42,9 @@ export default {
       typing: null,
     };
   },
+  computed: {
+    ...mapState(['isAuthenticated']),
+  },
   watch: {
     message(value) {
       value ? this.socket.emit('TYPING') : this.socket.emit('TYPING_STOPPED');
@@ -52,9 +52,11 @@ export default {
   },
   methods: {
     sendMessage() {
-      this.messages.push({ message: this.message, type: 0 });
-      this.socket.emit('CHAT_MESSAGE', this.message);
-      this.message = null;
+      if(this.message !== '') {
+        this.messages.push({ message: this.message, type: 0 });
+        this.socket.emit('CHAT_MESSAGE', this.message);
+        this.message = null;
+      }
     },
   },
   created() {

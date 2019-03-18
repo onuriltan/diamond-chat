@@ -12,7 +12,7 @@ export default class AuthController {
 
     public static async loginWithFacebook(req: Request, res: Response, next: NextFunction) {
         let {userID, grantedScopes, accessToken} = req.body;
-        grantedScopes = grantedScopes + ",name";
+        grantedScopes = grantedScopes + ",name,first_name";
         let response = null;
         try {
             response = await axios.get(`https://graph.facebook.com/${userID}?fields=${grantedScopes}&access_token=${accessToken}`);
@@ -51,7 +51,7 @@ export default class AuthController {
             maxAge
         };
         let age = helper.calculateAge(user.birthday);
-        let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, user.gender, age);
+        let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, user.gender, age, user.firstName, user.fullName);
         res.cookie(process.env["JWT_NAME"] as string , token, cookieOptions);
         return res.send(loginResponse);
     }

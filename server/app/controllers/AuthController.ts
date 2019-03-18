@@ -17,7 +17,6 @@ export default class AuthController {
         try {
             response = await axios.get(`https://graph.facebook.com/${userID}?fields=${grantedScopes}&access_token=${accessToken}`);
             let fbRes: FacebookResponse = new FacebookResponse(response.data);
-            console.log(fbRes);
             let existingUser = await userDb.getUser(fbRes.email);
             if (existingUser) {
                 AuthController.sendToken(existingUser, res);
@@ -47,7 +46,7 @@ export default class AuthController {
         // @ts-ignore
         let maxAge: number = helper.convertToNumber(process.env['TOKEN_EXPIRY']);
         const cookieOptions: object = {
-            httpOnly: true,
+            httpOnly: false,
             secure,
             maxAge
         };

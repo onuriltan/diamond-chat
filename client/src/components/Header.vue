@@ -6,12 +6,16 @@
              alt="diamond">
         DIAMOND CHAT
       </router-link>
+      <div class="navbar navbar-container__navbar__auth-links">
+        <router-link to="/chat" v-if="showAuthLinks" class="navbar-container__navbar__link">Chat</router-link>
+        <router-link to="/dashboard" v-if="showAuthLinks" class="navbar-container__navbar__link">Dashboard</router-link>
+      </div>
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <router-link to="/login">
             <b-button class="navbar-container__navbar__button" v-if="showLoginLink">Login</b-button>
           </router-link>
-          <b-button class="navbar-container__navbar__button" v-if="showLogoutLink" @click="logout">Logout</b-button>
+          <b-button class="navbar-container__navbar__button" v-if="showAuthLinks" @click="logout">Logout</b-button>
         </b-nav-form>
       </b-navbar-nav>
     </b-navbar>
@@ -43,7 +47,7 @@
           return true
         }
       },
-      showLogoutLink() {
+      showAuthLinks() {
         if (this.isAuthenticated) {
           return true
         } else if (this.isLoginScreen) {

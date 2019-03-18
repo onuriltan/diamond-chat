@@ -42,7 +42,7 @@
     width: 500px;
   }
   &__button {
-    background-color: #003366;
+    @extend %custom-button
   }
 }
 }

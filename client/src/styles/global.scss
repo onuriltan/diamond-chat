@@ -3,6 +3,10 @@
 @import "colors.scss";
 @import "buttons.scss";
 
+.active-page {
+  color: white !important;
+}
+
 #app {
   min-height: 100vh;
   background: url('~@/assets/ds1.jpg') no-repeat fixed center black;

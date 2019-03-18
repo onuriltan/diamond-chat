@@ -51,8 +51,8 @@
   background: transparent;
   border: 1px solid white;
   &:hover {
-    color: black;
-    background: white;
+    color: black !important;
+    background: white !important;
   }
 }
 

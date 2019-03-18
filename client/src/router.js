@@ -9,24 +9,24 @@ async function requireAuth(to, from, next) {
     if (store.getters["auth/isAuthenticated"]) {
       next();
     } else {
-      next('/login');
+      next(from.path)
     }
   }
   await store.dispatch('auth/loadUser')
   proceed()
 }
 
-async function alreadyLoggedIn (to, from, next) {
+/*async function alreadyLoggedIn (to, from, next) {
   function proceed () {
     if (store.getters["auth/isAuthenticated"]) {
-      next('/')
-    } else {
       next('/dashboard')
+    } else {
+      next('/login')
     }
   }
   await store.dispatch('auth/loadUser')
   proceed()
-}
+}*/
 
 const Home = () => import('./views/HomeView.vue');
 const Dashboard = () => import('./views/DashboardView.vue');
@@ -36,6 +36,7 @@ const NotFound = () => import('./views/NotFoundView.vue');
 
 export default new Router({
   mode: 'history',
+  linkActiveClass: 'active-page',
   routes: [
     {
       path: '/', name: 'home', component: Home,

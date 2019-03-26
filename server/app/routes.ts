@@ -4,11 +4,12 @@ import {Server} from 'socket.io';
 
 // Controllers
 import authController from './controllers/AuthController';
-import chatController from './controllers/ChatController';
+import chatController from "./controllers/ChatController";
 
 export class Routes {
 
     public static routes(app: Application): void {
+
         let apiRoutes = express.Router();
         let authRoutes = express.Router();
 

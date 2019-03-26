@@ -2,7 +2,8 @@
 
   &__background {
     position: relative;
-    &:before{
+
+    &:before {
       content: '';
       position: absolute;
       top: 0;
@@ -11,6 +12,7 @@
       bottom: 0;
       background: rgba(255, 255, 255, 0.159);
     }
+
     &__messages {
       min-height: calc(100vh - 105px);
       max-height: calc(100vh - 105px);
@@ -19,30 +21,49 @@
       display: flex;
       flex-direction: column;
       padding: 20px;
+
       &__typing {
         color: white !important;
         padding: 20px 0;
       }
+
       &__message {
         padding: 5px 0;
         color: white;
         font-size: 17px;
+      }
+    }
+    &__waiting {
+      min-height: calc(100vh - 40px);
+      max-height: calc(100vh - 40px);
+      padding-top: 100px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      &__message {
+        font-size: 26px;
+      }
+
+    }
+  }
+
+  &__message-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__inputgroup {
+      flex-wrap: unset;
+    }
+
+    &__input {
+      width: 500px;
+    }
+
+    &__button {
+      @extend %custom-button
     }
   }
 }
 
-&__message-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &__inputgroup {
-    flex-wrap: unset;
-  }
-  &__input {
-    width: 500px;
-  }
-  &__button {
-    @extend %custom-button
-  }
-}
-}

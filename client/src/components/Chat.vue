@@ -64,33 +64,40 @@
     },
     watch: {
       message(value) {
-        value ? this.socket.emit('TYPING') : this.socket.emit('TYPING_STOPPED');
+        value ? this.socket.emit('TYPING', {room: this.room}) : this.socket.emit('TYPING_STOPPED', {room: this.room});
       },
     },
     methods: {
       sendMessage() {
         if (this.message !== '') {
           this.messages.push({message: this.message, type: 0});
-          this.socket.emit('CHAT_MESSAGE', this.message);
+          this.socket.emit('CHAT_MESSAGE', {message: this.message, room: this.room});
           this.message = null;
         }
       }
     },
     created() {
       this.socket.emit('LOGIN', 'Onur');
-      this.socket.on('CREATED', (data) => {
+      this.socket.on('CREATED', data => {
         console.log(data);
       });
-      this.socket.on('LOGIN_RESPONSE', (data) => {
+      this.socket.on('LOGIN_RESPONSE', data => {
+        console.log(data.message, ", code: " + data.type)
         this.loginResponseType = data.type
       });
-      this.socket.on('CHAT_MESSAGE', (data) => {
-        this.messages.push({message: data, type: 1});
+      this.socket.on('CHAT_START', data => {
+        console.log("Chat is started in room " + data.room)
+        this.loginResponseType = 1
+        this.room = data.room;
       });
-      this.socket.on('TYPING', () => {
+      this.socket.on('CHAT_MESSAGE', data => {
+        this.messages.push({message: data, type: 1});
+
+      });
+      this.socket.on('TYPING', data => {
         this.typing = true;
       });
-      this.socket.on('TYPING_STOPPED', () => {
+      this.socket.on('TYPING_STOPPED', data => {
         this.typing = false;
       });
     },

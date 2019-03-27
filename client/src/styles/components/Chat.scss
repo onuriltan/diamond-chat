@@ -1,51 +1,37 @@
 .chat-dashboard {
 
-  &__background {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.159);
+  }
+
+  &__messages {
+    min-height: calc(100vh - 105px);
+    max-height: calc(100vh - 105px);
+    overflow-y: scroll;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.159);
+    &__typing {
+      color: white !important;
+      padding: 20px 0;
     }
 
-    &__messages {
-      min-height: calc(100vh - 105px);
-      max-height: calc(100vh - 105px);
-      overflow-y: scroll;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-
-      &__typing {
-        color: white !important;
-        padding: 20px 0;
-      }
-
-      &__message {
-        padding: 5px 0;
-        color: white;
-        font-size: 17px;
-      }
-    }
-    &__waiting {
-      min-height: calc(100vh - 40px);
-      max-height: calc(100vh - 40px);
-      padding-top: 100px;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
+    &__message {
+      padding: 5px 0;
       color: white;
-      &__message {
-        font-size: 26px;
-      }
-
+      font-size: 17px;
     }
+
   }
 
   &__message-form {
@@ -59,11 +45,34 @@
 
     &__input {
       width: 500px;
+      outline: none;
+      box-shadow:none !important;
+      border:1px solid #ccc !important;
     }
 
     &__button {
       @extend %custom-button
     }
   }
-}
 
+  &__waiting {
+    min-height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
+    padding-top: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+
+    &__message {
+      font-size: 26px;
+    }
+
+  }
+
+  &__chat-end {
+    min-height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
+    padding-top: 100px;
+  }
+}

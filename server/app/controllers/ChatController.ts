@@ -32,7 +32,7 @@ export default class ChatController {
                 // @ts-ignore
                 let room = this.rooms[socket.id];
                 socket.broadcast.to(room).emit('CHAT_END');
-                console.log('disconnected')
+                console.log('Chat ended')
             })
         };
 

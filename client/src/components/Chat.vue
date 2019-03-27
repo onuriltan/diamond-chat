@@ -31,7 +31,11 @@
       </div>
 
       <div class="chat-dashboard__chat-end" v-if="chatStatus === 2">
-        User is disconnected from chat
+        <div class="chat-dashboard__chat-end__message">
+          User is disconnected from chat
+        </div>
+        <b-btn  class="chat-dashboard__chat-end__btn-find">Research</b-btn>
+
       </div>
     </div>
   </div>

@@ -45,9 +45,7 @@
 
     &__input {
       width: 500px;
-      outline: none;
-      box-shadow:none !important;
-      border:1px solid #ccc !important;
+      color: black;
     }
 
     &__button {
@@ -74,5 +72,17 @@
     min-height: calc(100vh - 40px);
     max-height: calc(100vh - 40px);
     padding-top: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    &__message {
+      font-size: 26px;
+    }
+    &__btn-find {
+      margin-top: 20px;
+      z-index: 3;
+      @extend %custom-button
+    }
   }
 }

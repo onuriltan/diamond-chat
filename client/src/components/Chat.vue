@@ -23,7 +23,7 @@
 
       <div class="chat-dashboard__waiting" v-if="chatStatus === 0">
         <div class="chat-dashboard__waiting__message">
-          Waiting for the random stranger...
+          Waiting for the Floydian...
         </div>
         <div class="chat-dashboard__waiting__loader">
           <i class="fa fa-refresh fa-spin fa-5x"></i>

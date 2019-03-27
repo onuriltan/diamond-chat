@@ -61,7 +61,9 @@
     align-items: center;
     flex-direction: column;
     color: white;
-
+    &__loader {
+      margin-top: 20px;
+    }
     &__message {
       font-size: 26px;
     }

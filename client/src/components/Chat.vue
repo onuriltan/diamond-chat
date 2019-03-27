@@ -34,7 +34,7 @@
         <div class="chat-dashboard__chat-end__message">
           User is disconnected from chat
         </div>
-        <b-btn  class="chat-dashboard__chat-end__btn-find">Research</b-btn>
+        <b-btn  class="chat-dashboard__chat-end__btn-find" @click="findAnother">Find another Floydian</b-btn>
 
       </div>
     </div>
@@ -60,10 +60,8 @@
                 message: '',
                 messages: [],
                 typing: null,
-                connected: false,
                 room: null,
                 chatStatus: null,
-
             };
         },
         computed: {
@@ -81,6 +79,10 @@
                     this.socket.emit('CHAT_MESSAGE', {message: this.message, room: this.room});
                     this.message = null;
                 }
+            },
+            findAnother() {
+                this.messages = []
+                this.socket.emit('LOGIN', 'Onur');
             }
         },
         created() {

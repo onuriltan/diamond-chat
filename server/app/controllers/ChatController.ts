@@ -29,6 +29,9 @@ export default class ChatController {
                 socket.broadcast.to(data.room).emit('TYPING_STOPPED', data)
             });
             socket.on('disconnect', () => {
+                // @ts-ignore
+                let room = this.rooms[socket.id];
+                socket.broadcast.to(room).emit('CHAT_END');
                 console.log('disconnected')
             })
         };

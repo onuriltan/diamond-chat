@@ -92,13 +92,15 @@
       });
       this.socket.on('CHAT_MESSAGE', data => {
         this.messages.push({message: data, type: 1});
-
       });
       this.socket.on('TYPING', data => {
         this.typing = true;
       });
       this.socket.on('TYPING_STOPPED', data => {
         this.typing = false;
+      });
+      this.socket.on('CHAT_END', data => {
+        console.log("Chat ended");
       });
     },
   };

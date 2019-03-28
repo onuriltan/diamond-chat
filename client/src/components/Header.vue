@@ -7,7 +7,7 @@
         DIAMOND CHAT
       </router-link>
       <div class="navbar navbar-container__navbar__auth-links">
-        <router-link to="/chat" v-if="showAuthLinks" class="navbar-container__navbar__link">Chat</router-link>
+        <router-link to="/random-chat" v-if="showAuthLinks" class="navbar-container__navbar__link">Random Chat</router-link>
         <router-link to="/dashboard" v-if="showAuthLinks" class="navbar-container__navbar__link">Dashboard</router-link>
       </div>
       <b-navbar-nav class="ml-auto">

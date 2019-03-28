@@ -35,8 +35,8 @@
           User is disconnected from chat
         </div>
         <b-btn  class="chat-dashboard__chat-end__btn-find" @click="findAnother">Find another Floydian</b-btn>
-
       </div>
+
     </div>
   </div>
 </template>

@@ -4,12 +4,13 @@ package-lock.json
 node_modules
 /dist
 /server/build
-
+server/dist
 # local env files
 .env
 .env.local
 .env.*
 .env.*.local
+
 
 # Log files
 npm-debug.log*

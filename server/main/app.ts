@@ -1,4 +1,4 @@
-import express from "express";
+import express, {Request, Response} from "express";
 import {Routes} from "../app/routes";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -22,6 +22,7 @@ export class ChatServer {
         this.config();
         this.mongoSetup();
         this.createSocket();
+        this.serveSPA();
     }
 
     private createApp(): void {
@@ -57,6 +58,13 @@ export class ChatServer {
             console.log('Running server on port %s', ChatServer.PORT);
         });
         Routes.chat(this.io);
+    }
+
+    private serveSPA() {
+            // Static folder
+            this.app.use(express.static(__dirname + '/public'));
+            // Handle SPA
+            this.app.get('*', (req: Request, res: Response) => res.sendFile(__dirname + '/public/index.html'));
     }
 
     public getApp(): express.Application {

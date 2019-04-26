@@ -2,13 +2,15 @@
   "name": "dimondchat",
   "version": "1.0.0",
   "description": "Chat App with Node.js Vue.js",
-  "main": "main/app.ts",
+  "main": "server/main/app.ts",
   "scripts": {
-    "start": "node build/index.js",
+    "start": "node server/dist/main/index.js",
     "dev": "npm run build:live",
-    "build": "tsc -p .",
-    "build:live": "nodemon --watch '*.ts' --exec 'ts-node' main/index.ts",
-    "tsc": "tsc"
+    "build": "node_modules/.bin/tsc -p .",
+    "build:live": "node_modules/.bin/nodemon --watch '*.ts' --exec 'ts-node' server/main/index.ts",
+    "tsc": "node_modules/.bin/tsc",
+    "heroku-postbuild": "npm run build"
+
   },
   "author": "Onur Iltan",
   "license": "MIT",

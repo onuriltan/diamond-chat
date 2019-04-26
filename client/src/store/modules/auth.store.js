@@ -41,7 +41,7 @@ const auth = {
       } else {
         state.isAuthenticated = false
         state.sessionExpired = true
-        this.clearUserInfo()
+        this.commit('auth/clearUserInfo')
       }
       if (expiration != null && parseInt(expiration) - unixTimeStamp > 0) {
         state.isAuthenticated = true

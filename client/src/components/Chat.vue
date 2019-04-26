@@ -1,18 +1,15 @@
 <template>
   <div class="container">
     <div class="chat-dashboard">
-      <div class="chat-dashboard__background">
-        <div class="chat-dashboard__background__messages">
-          <p v-if="typing" class="chat-dashboard__background__messages__typing">User is typing...</p>
-          <div v-for="message in messages">
-            <span :class="{'float-left' : message.type === 1, 'float-right' : message.type !== 1}"
-                  class="chat-dashboard__background__messages__message">{{message.message}}</span>
-          </div>
+      <div class="chat-dashboard__messages" v-if="chatStatus === 1">
+        <p v-if="typing" class="chat-dashboard__messages__typing">User is typing...</p>
+        <div v-for="message in messages" :key="message">
+            <span :key="message" :class="{'float-left' : message.type === 1, 'float-right' : message.type !== 1}"
+                  class="chat-dashboard__messages__message">{{message.message}}</span>
         </div>
       </div>
-
-      <form class="chat-dashboard__message-form" @submit.prevent="sendMessage">
-        <b-input-group class="chat-dashboard__message-form__inputgroup"  size="lg">
+      <form class="chat-dashboard__message-form" @submit.prevent="sendMessage" v-if="chatStatus === 1">
+        <b-input-group class="chat-dashboard__message-form__inputgroup" size="lg">
           <b-form-input v-model="message"
                         class="chat-dashboard__message-form__input"
                         type="text"
@@ -23,58 +20,100 @@
           </b-input-group-append>
         </b-input-group>
       </form>
+
+      <div class="chat-dashboard__waiting" v-if="chatStatus === 0">
+        <div class="chat-dashboard__waiting__message">
+          Waiting for the Floydian...
+        </div>
+        <div class="chat-dashboard__waiting__loader">
+          <i class="fa fa-refresh fa-spin fa-5x"></i>
+        </div>
+      </div>
+
+      <div class="chat-dashboard__chat-end" v-if="chatStatus === 2">
+        <div class="chat-dashboard__chat-end__message">
+          User is disconnected from chat
+        </div>
+        <b-btn  class="chat-dashboard__chat-end__btn-find" @click="findAnother">Find another Floydian</b-btn>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import io from 'socket.io-client';
-import {createNamespacedHelpers} from 'vuex'
-const {mapState} = createNamespacedHelpers('auth')
+    import io from 'socket.io-client';
+    import {createNamespacedHelpers} from 'vuex'
+    import cookieResource from '../resources/cookie.resource'
 
-export default {
-  data() {
-    return {
-      socket: io(process.env.VUE_APP_SOCKET_URL),
-      user: '',
-      message: '',
-      messages: [],
-      typing: null,
+    const {mapState} = createNamespacedHelpers('auth')
+
+    export default {
+        data() {
+            return {
+                socket: io(process.env.VUE_APP_SOCKET_URL, {
+                    extraHeaders: {
+                        Authorization: `Bearer ${cookieResource.getCookie(process.env.VUE_APP_JWT_COOKIE_NAME)}`
+                    }
+                }),
+                user: '',
+                message: '',
+                messages: [],
+                typing: null,
+                room: null,
+                chatStatus: null,
+            };
+        },
+        computed: {
+            ...mapState(['isAuthenticated', 'firstName']),
+        },
+        watch: {
+            message(value) {
+                value ? this.socket.emit('TYPING', {room: this.room}) : this.socket.emit('TYPING_STOPPED', {room: this.room});
+            },
+        },
+        methods: {
+            sendMessage() {
+                if (this.message !== '') {
+                    this.messages.push({message: this.message, type: 0});
+                    this.socket.emit('CHAT_MESSAGE', {message: this.message, room: this.room});
+                    this.message = null;
+                }
+            },
+            findAnother() {
+                this.messages = []
+                this.socket.emit('LOGIN', 'Onur');
+            }
+        },
+        created() {
+            this.socket.emit('LOGIN', 'Onur');
+            this.socket.on('CREATED', data => {
+                console.log(data);
+            });
+            this.socket.on('LOGIN_RESPONSE', data => {
+                console.log(data.message, ", code: " + data.type)
+                this.chatStatus = 0
+            });
+            this.socket.on('CHAT_START', data => {
+                console.log("Chat is started in room " + data.room)
+                this.room = data.room;
+                this.chatStatus = 1
+            });
+            this.socket.on('CHAT_MESSAGE', data => {
+                this.messages.push({message: data, type: 1});
+            });
+            this.socket.on('TYPING', data => {
+                this.typing = true;
+            });
+            this.socket.on('TYPING_STOPPED', data => {
+                this.typing = false;
+            });
+            this.socket.on('CHAT_END', data => {
+                console.log("Chat ended");
+                this.chatStatus = 2
+            });
+        },
     };
-  },
-  computed: {
-    ...mapState(['isAuthenticated']),
-  },
-  watch: {
-    message(value) {
-      value ? this.socket.emit('TYPING') : this.socket.emit('TYPING_STOPPED');
-    },
-  },
-  methods: {
-    sendMessage() {
-      if(this.message !== '') {
-        this.messages.push({ message: this.message, type: 0 });
-        this.socket.emit('CHAT_MESSAGE', this.message);
-        this.message = null;
-      }
-    },
-  },
-  created() {
-    this.socket.emit('CREATED', 'Onur');
-    this.socket.on('CREATED', (data) => {
-      console.log(data);
-    });
-    this.socket.on('CHAT_MESSAGE', (data) => {
-      this.messages.push({ message: data, type: 1 });
-    });
-    this.socket.on('TYPING', () => {
-      this.typing = true;
-    });
-    this.socket.on('TYPING_STOPPED', () => {
-      this.typing = false;
-    });
-  },
-};
 </script>
 
 <style scoped lang="scss">

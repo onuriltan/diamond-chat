@@ -16,17 +16,17 @@ async function requireAuth(to, from, next) {
   proceed()
 }
 
-/*async function alreadyLoggedIn (to, from, next) {
+async function alreadyLoggedIn (to, from, next) {
   function proceed () {
     if (store.getters["auth/isAuthenticated"]) {
       next('/dashboard')
     } else {
-      next('/login')
+      next()
     }
   }
   await store.dispatch('auth/loadUser')
   proceed()
-}*/
+}
 
 const Home = () => import('./views/HomeView.vue');
 const Dashboard = () => import('./views/DashboardView.vue');
@@ -39,16 +39,16 @@ export default new Router({
   linkActiveClass: 'active-page',
   routes: [
     {
-      path: '/', name: 'home', component: Home,
+      path: '/', name: 'home', component: Home
     },
     {
-      path: '/login', name: 'login', component: Login
+      path: '/login', name: 'login', component: Login, beforeEnter: alreadyLoggedIn
     },
     {
       path: '/dashboard', name: 'dashboard', component: Dashboard, beforeEnter: requireAuth
     },
     {
-      path: '/chat', name: 'chat', component: Chat, beforeEnter: requireAuth
+      path: '/random-chat', name: 'chat', component: Chat, beforeEnter: requireAuth
     },
     {
       path: '*', name: 'notfound', component: NotFound,

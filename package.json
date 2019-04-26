@@ -9,8 +9,8 @@
     "build": "node_modules/.bin/tsc -p .",
     "build:live": "node_modules/.bin/nodemon --watch '*.ts' --exec 'ts-node' server/main/index.ts",
     "tsc": "node_modules/.bin/tsc",
-    "heroku-postbuild": "npm run build"
-
+    "heroku-prebuild": "npm install npm@latest -g && cd client && npm install && npm install --only=dev",
+    "heroku-postbuild": "npm run build && cd client && npm run build"
   },
   "author": "Onur Iltan",
   "license": "MIT",

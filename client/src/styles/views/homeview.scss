@@ -7,12 +7,19 @@
 
   &__slogan {
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
   }
   &__explanation {
     margin-top: 20px;
     color: lightgray;
+    font-size: 15px;
+    width: 50%;
+    text-align: center;
+  }
+  &__status {
+    margin-top: 10px;
+    color: white;
     font-size: 15px;
     width: 50%;
     text-align: center;
@@ -24,7 +31,7 @@
 
 
     &__slogan {
-
+      font-size: 30px;
     }
     &__explanation {
       width: 90%;

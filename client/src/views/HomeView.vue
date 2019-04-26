@@ -4,6 +4,9 @@
     <div class="home__explanation">
       Diamond chat is an real time chat application aims to connect people who shares the same music taste.
     </div>
+    <div class="home__status">
+      <strong>This is a demo of the application for now! More to come soon</strong>
+    </div>
 
   </div>
 

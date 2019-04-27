@@ -2,6 +2,9 @@ const path = require('path');
 
 module.exports = {
   outputDir: path.resolve(__dirname, '../server/dist/main/public'),
+  devServer: {
+    port: 8080
+  },
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',

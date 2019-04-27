@@ -86,6 +86,7 @@
             }
         },
         created() {
+            console.log('created')
             this.socket.emit('LOGIN', 'Onur');
             this.socket.on('CREATED', data => {
                 console.log(data);
@@ -113,6 +114,10 @@
                 this.chatStatus = 2
             });
         },
+        beforeDestroy() {
+            this.socket.emit('DISCONNECT', 'Onur');
+            console.log(this.socket)
+        }
     };
 </script>
 

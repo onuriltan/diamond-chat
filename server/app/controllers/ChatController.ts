@@ -28,9 +28,22 @@ export default class ChatController {
             socket.on('TYPING_STOPPED', (data: any) => {
                 socket.broadcast.to(data.room).emit('TYPING_STOPPED', data)
             });
+            socket.on('DISCONNECT', () => {
+                // @ts-ignore
+                let room = this.rooms[socket.id];
+                socket.leave(room);
+                console.log("disconnect");
+                socket.broadcast.to(room).emit('CHAT_END');
+                console.log('Chat ended')
+                const index = this.queue.indexOf(socket, 0);
+                if (index > -1) {
+                    this.queue.splice(index, 1);
+                }
+            });
             socket.on('disconnect', () => {
                 // @ts-ignore
                 let room = this.rooms[socket.id];
+                console.log("disconnect");
                 socket.broadcast.to(room).emit('CHAT_END');
                 console.log('Chat ended')
             })
@@ -74,4 +87,5 @@ export default class ChatController {
             this.queue.push(socket)
         }
     }
+
 }

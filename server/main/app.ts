@@ -35,7 +35,9 @@ export class ChatServer {
         dotenv.config();
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
-        this.app.use(cors({credentials: true, origin: process.env["CLIENT_ORIGIN"]}));
+        if(process.env.NODE_ENV !== "production") {
+            this.app.use(cors({credentials: true, origin: process.env["CLIENT_ORIGIN"]}));
+        }
         this.app.use(logger('tiny')); // Log requests to API using morgan
         Routes.routes(this.app);
     }

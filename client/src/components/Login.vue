@@ -55,14 +55,13 @@
             grantedScopes = grantedScopes.replace(/public_profile/g, '')
             grantedScopes = grantedScopes.slice(0, -1)
             const {userID, accessToken} = response.authResponse;
-            console.log(grantedScopes)
             this.loginWithFacebook({userID, grantedScopes, accessToken})
           } else {
             console.log('User cancelled login or did not fully authorize.')
           }
           this.fbLoginClicked = false
         }.bind(this), {
-          scope: 'email,user_gender,user_age_range,user_birthday,user_photos',
+          scope: 'public_profile,email',
           return_scopes: true
         })
       }

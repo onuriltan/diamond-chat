@@ -4,9 +4,7 @@
   cursor: pointer;
   /* width: 13em;  - apply for fixed size */
   margin: 0.2em;
-  padding: 0 15px 0 46px;
   border: none;
-  text-align: left;
   line-height: 34px;
   white-space: nowrap;
   border-radius: 0.2em;
@@ -44,6 +42,24 @@
 .loginBtn--facebook:focus {
   background-color: #5B7BD5;
   background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+
+/* Spotify */
+.loginBtn--spotify {
+  background-color: #1db954;
+  border:0 !important;
+  border-radius: 20px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: black;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginBtn--spotify:hover{
+  opacity: 0.8;
 }
 
 %custom-button {

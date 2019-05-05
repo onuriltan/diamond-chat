@@ -31,7 +31,6 @@ async function alreadyLoggedIn (to, from, next) {
 const Home = () => import('./views/HomeView.vue');
 const Dashboard = () => import('./views/DashboardView.vue');
 const Chat = () => import('./views/ChatView.vue');
-const Login = () => import('./views/LoginView.vue');
 const NotFound = () => import('./views/NotFoundView.vue');
 
 export default new Router({
@@ -40,9 +39,6 @@ export default new Router({
   routes: [
     {
       path: '/', name: 'home', component: Home
-    },
-    {
-      path: '/login', name: 'login', component: Login, beforeEnter: alreadyLoggedIn
     },
     {
       path: '/dashboard', name: 'dashboard', component: Dashboard, beforeEnter: requireAuth

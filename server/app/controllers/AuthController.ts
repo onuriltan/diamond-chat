@@ -59,10 +59,22 @@ export default class AuthController {
         };
         request.post(authOptions, (error, response, body) => {
             let access_token = body.access_token;
-            console.log(body)
             let uri = process.env.FRONTEND_URI || 'http://localhost:8080';
-            res.redirect(uri + '?access_token=' + access_token)
+            res.redirect(uri + '/?access_token=' + access_token)
         })
+    }
+
+    static async getSpotfiyUserInfo(req: Request, res: Response, next: NextFunction) {
+        axios.defaults.headers.common = {'Authorization': `Bearer ${req.body.token}`};
+        let response;
+        try {
+            response = await axios.get("https://api.spotify.com/v1/me");
+        } catch (error) {
+            return res.status(400).send({"error": "invalid token"})
+        }
+        if(response.status === 200) {
+            return res.status(200).send(response.data);
+        }
     }
 
     private static async addUser(fbRes: FacebookResponse, res: Response) {

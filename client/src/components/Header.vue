@@ -40,9 +40,23 @@
             }
         },
         methods: {
-            ...mapActions(['logout']),
+            ...mapActions(['logout', 'setUserInfo', 'setAccessToken']),
             loginWithSpotify() {
                 authRes.loginWithSpotify()
+            },
+            checkIsTokenValid(token) {
+                if (token) {
+                    this.$router.replace('/');
+                    authRes.getUserInfo(token)
+                        .then(function (response) {
+                            console.log(response)
+                            this.setUserInfo(response)
+                            this.setAccessToken(token)
+                        }.bind(this))
+                        .catch(function (error) {
+                            console.log(error);
+                        }.bind(this));
+                }
             }
         },
         computed: {
@@ -69,6 +83,9 @@
         watch: {
             $route(to, from) {
                 this.isLoginScreen = to.path === "/login";
+            },
+            '$route.query.access_token': function (token) {
+                this.checkIsTokenValid(token)
             }
         }
     };

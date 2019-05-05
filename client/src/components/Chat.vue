@@ -44,18 +44,13 @@
 <script>
     import io from 'socket.io-client';
     import {createNamespacedHelpers} from 'vuex'
-    import cookieResource from '../resources/cookie.resource'
 
     const {mapState} = createNamespacedHelpers('auth')
 
     export default {
         data() {
             return {
-                socket: io(process.env.VUE_APP_SOCKET_URL, {
-                    extraHeaders: {
-                        Authorization: `Bearer ${cookieResource.getCookie(process.env.VUE_APP_JWT_COOKIE_NAME)}`
-                    }
-                }),
+                socket: io(process.env.VUE_APP_SOCKET_URL),
                 user: '',
                 message: '',
                 messages: [],

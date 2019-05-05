@@ -80,29 +80,12 @@ export default class AuthController {
     private static async addUser(fbRes: FacebookResponse, res: Response) {
         let user: IUser = await userDb.addUser(fbRes);
         if (user) {
-            AuthController.sendToken(user, res);
+
         } else {
             return res.status(400).send({"error": "error occurred"})
         }
 
     }
 
-    private static sendToken(user: IUser, res: Response) {
-        let jwtSign: JwtSignImpl = new JwtSignImpl(user.email, user.role);
-        let token = jwtHelper.generateToken(jwtSign);
-        // @ts-ignore
-        let secure: boolean = helper.convertToBoolean(process.env['COOKIE_SECURE']);
-        // @ts-ignore
-        let maxAge: number = helper.convertToNumber(process.env['TOKEN_EXPIRY']);
-        const cookieOptions: object = {
-            httpOnly: false,
-            secure,
-            maxAge
-        };
-        let age = helper.calculateAge(user.birthday);
-        let loginResponse: LoginResponse = new LoginResponse(user.email, user.role, user.gender, age, user.firstName, user.fullName);
-        res.cookie(process.env["JWT_NAME"] as string , token, cookieOptions);
-        return res.send(loginResponse);
-    }
 
 }

@@ -24,6 +24,8 @@
     "@types/mongodb": "^3.1.22",
     "@types/mongoose": "^5.3.22",
     "@types/morgan": "^1.7.35",
+    "@types/query-string": "^6.3.0",
+    "@types/request": "^2.48.1",
     "@types/socket.io": "^2.1.2",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.4",
@@ -38,6 +40,8 @@
     "mongoose": "^5.4.19",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
+    "querystring": "^0.2.0",
+    "request": "^2.88.0",
     "socket.io": "^2.2.0",
     "typescript": "^3.3.3333"
   },

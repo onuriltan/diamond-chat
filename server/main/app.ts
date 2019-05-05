@@ -35,9 +35,7 @@ export class ChatServer {
         dotenv.config();
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
-        if(process.env.NODE_ENV !== "production") {
-            this.app.use(cors({credentials: true, origin: process.env["CLIENT_ORIGIN"]}));
-        }
+        this.app.use(cors({ origin: true }));
         this.app.use(logger('tiny')); // Log requests to API using morgan
         Routes.routes(this.app);
     }
@@ -63,10 +61,12 @@ export class ChatServer {
     }
 
     private serveSPA() {
+        if(process.env.NODE_ENV !== 'development') {
             // Static folder
             this.app.use(express.static(__dirname + '/public'));
             // Handle SPA
             this.app.get('*', (req: Request, res: Response) => res.sendFile(__dirname + '/public/index.html'));
+        }
     }
 
     public getApp(): express.Application {

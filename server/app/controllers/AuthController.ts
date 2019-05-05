@@ -1,5 +1,7 @@
 import {Request, Response, NextFunction} from "express";
 import axios from 'axios';
+import querystring from 'querystring';
+import request from 'request';
 import userDb from '../db/services/UserDb';
 import IUser from '../models/interfaces/IUser';
 import jwtHelper from '../helpers/JwtHelper';
@@ -25,6 +27,53 @@ export default class AuthController {
             }
         } catch (error) {
             return res.status(400).send(error.response.data)
+        }
+    }
+
+
+    public static loginWithSpotify(req: Request, res: Response, next: NextFunction) {
+        res.redirect('https://accounts.spotify.com/authorize?' +
+            querystring.stringify({
+                response_type: 'code',
+                client_id: process.env.SPOTIFY_CLIENT_ID,
+                scope: 'user-read-private user-read-email',
+                redirect_uri: process.env.SPOTIFY_REDIRECT_URI
+            }))
+    }
+
+    public static spotfiyCallback(req: Request, res: Response, next: NextFunction) {
+        let code = req.query.code || null;
+        let authOptions = {
+            url: 'https://accounts.spotify.com/api/token',
+            form: {
+                code: code,
+                redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
+                grant_type: 'authorization_code'
+            },
+            headers: {
+                'Authorization': 'Basic ' + (new Buffer(
+                    process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
+                ).toString('base64'))
+            },
+            json: true
+        };
+        request.post(authOptions, (error, response, body) => {
+            let access_token = body.access_token;
+            let uri = process.env.FRONTEND_URI || 'http://localhost:8080';
+            res.redirect(uri + '/?access_token=' + access_token)
+        })
+    }
+
+    static async getSpotfiyUserInfo(req: Request, res: Response, next: NextFunction) {
+        axios.defaults.headers.common = {'Authorization': `Bearer ${req.body.token}`};
+        let response;
+        try {
+            response = await axios.get("https://api.spotify.com/v1/me");
+        } catch (error) {
+            return res.status(400).send({"error": "invalid token"})
+        }
+        if(response.status === 200) {
+            return res.status(200).send(response.data);
         }
     }
 

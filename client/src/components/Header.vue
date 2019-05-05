@@ -13,13 +13,12 @@
       </div>
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
-          <router-link to="/login">
-            <button class="navbar-container__navbar__spotify-button" v-if="showLoginLink">
-              <img src="../assets/spotify-b.png" class="navbar-container__navbar__spotify-button__image"
-                   alt="spotify">
-              Login with Spotify
-            </button>
-          </router-link>
+          <button class="navbar-container__navbar__spotify-button" v-if="showLoginLink"
+                  @click="loginWithSpotify" type="button">
+            <img src="../assets/spotify-b.png" class="navbar-container__navbar__spotify-button__image"
+                 alt="spotify">
+            Login with Spotify
+          </button>
           <b-button class="navbar-container__navbar__button" v-if="showAuthLinks" @click="logout">Logout</b-button>
         </b-nav-form>
       </b-navbar-nav>
@@ -29,6 +28,7 @@
 
 <script>
     import {createNamespacedHelpers} from 'vuex'
+    import authRes from '../resources/auth.resource'
 
     const {mapState, mapActions} = createNamespacedHelpers('auth')
 
@@ -40,7 +40,24 @@
             }
         },
         methods: {
-            ...mapActions(['logout']),
+            ...mapActions(['logout', 'setUserInfo', 'setAccessToken']),
+            loginWithSpotify() {
+                authRes.loginWithSpotify()
+            },
+            checkIsTokenValid(token) {
+                if (token) {
+                    this.$router.replace('/');
+                    authRes.getUserInfo(token)
+                        .then(function (response) {
+                            console.log(response)
+                            this.setUserInfo(response)
+                            this.setAccessToken(token)
+                        }.bind(this))
+                        .catch(function (error) {
+                            console.log(error);
+                        }.bind(this));
+                }
+            }
         },
         computed: {
             ...mapState(['isAuthenticated']),
@@ -66,6 +83,9 @@
         watch: {
             $route(to, from) {
                 this.isLoginScreen = to.path === "/login";
+            },
+            '$route.query.access_token': function (token) {
+                this.checkIsTokenValid(token)
             }
         }
     };

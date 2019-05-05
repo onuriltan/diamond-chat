@@ -1,41 +1,62 @@
-import authResource from '../../resources/auth.resource'
-import cookieResource from '../../resources/cookie.resource'
-
 import router from '../../router'
 import jwtDecode from 'jwt-decode'
 
 const auth = {
   namespaced: true,
   state: {
+    token: null,
     isAuthenticated: false,
     sessionExpired: false,
-    firstName: '',
-    fullName: '',
-    age: '',
+    display_name: '',
     email: '',
-    gender: ''
   },
   mutations: {
     updateIsAuthenticated(state, response) {
       if (response.status === 200) {
         router.push('/dashboard')
         state.isAuthenticated = true
-        state.firstName = response.data.firstName
-        state.fullName = response.data.fullName
-        state.age = response.data.age
+        state.display_name = response.data.display_name
         state.email = response.data.email
         state.gender = response.data.gender
         state.sessionExpired = false
       } else {
         setTimeout(() => {
-          router.push('/login')
+          router.push('/')
         }, 2000)
       }
+    },
+    clearUserInfo (state) {
+      state.display_name = ''
+      state.email = ''
+    },
+    setAccessToken (state, token) {
+      state.token = token
+    },
+    deleteAccessToken (state) {
+      state.token = null
+    },
+    unAuthUser (state) {
+      state.isAuthenticated = false
+    },
+
+  },
+  actions: {
+    setUserInfo(context, userInfo) {
+        context.commit('updateIsAuthenticated', userInfo)
+    },
+    setAccessToken(context, token) {
+      context.commit('setAccessToken', token)
+    },
+    logout(context) {
+        context.commit('unAuthUser')
+        context.commit('deleteAccessToken')
+        context.commit('clearUserInfo')
+        router.push('/')
     },
     loadUser(state) {
       let unixTimeStamp = new Date().getTime() / 1000
       let expiration = null
-      let token = cookieResource.getCookie(process.env.VUE_APP_JWT_COOKIE_NAME)
+      let token = state.token
       if (token != null) {
         expiration = jwtDecode(token).exp
       } else {
@@ -47,41 +68,7 @@ const auth = {
         state.isAuthenticated = true
         state.sessionExpired = false
       }
-    },
-    clearUserInfo (state) {
-      state.firstName = ''
-      state.fullName = ''
-      state.age = ''
-      state.email = ''
-      state.gender = ''
-    },
-    deleteAccessToken () {
-      cookieResource.removeCookie(process.env.VUE_APP_JWT_COOKIE_NAME)
-    },
-    unAuthUser (state) {
-      state.isAuthenticated = false
-    },
-
-  },
-  actions: {
-    async loginWithFacebook(context, params) {
-      try {
-        let response = await authResource.loginWithFacebook(params)
-        context.commit('updateIsAuthenticated', response)
-        return response
-      } catch (error) {
-        return error.response
-      }
-    },
-    async logout(context) {
-        context.commit('unAuthUser')
-        context.commit('deleteAccessToken')
-        context.commit('clearUserInfo')
-        router.push('/login')
-    },
-    loadUser(context) {
-      context.commit('loadUser')
-    },
+    }
   },
   getters: {
     isAuthenticated : state =>  {

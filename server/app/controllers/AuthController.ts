@@ -21,7 +21,7 @@ export default class AuthController {
             let fbRes: FacebookResponse = new FacebookResponse(response.data);
             let existingUser = await userDb.getUser(fbRes.email);
             if (existingUser) {
-                AuthController.sendToken(existingUser, res);
+                //AuthController.sendToken(existingUser, res);
             } else {
                 await AuthController.addUser(fbRes, res);
             }

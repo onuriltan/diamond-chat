@@ -3,7 +3,7 @@ import querystring from "querystring";
 
 const url = process.env.VUE_APP_AUTH_URL;
 
-class AuthResource {
+class AuthService {
     static loginWithFacebook(params) {
         return new Promise(async (resolve) => {
             try {
@@ -41,4 +41,4 @@ class AuthResource {
     }
 }
 
-export default AuthResource
+export default AuthService

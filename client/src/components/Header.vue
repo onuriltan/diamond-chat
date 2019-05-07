@@ -1,6 +1,8 @@
 <template>
   <div class="navbar-container">
     <b-navbar class="navbar navbar-container__navbar">
+      <i class="navbar-container__navbar__bars fa fa-bars fa-3x" @click="onMenuClick" aria-hidden="true"></i>
+
       <router-link to="/" class="navbar-brand navbar-container__navbar__brand">
         <img src="../assets/diamondwhite.svg" width="50" height="50" class="navbar-container__navbar__brand__img"
              alt="diamond">
@@ -9,7 +11,8 @@
       <div class="navbar navbar-container__navbar__auth-links">
         <router-link to="/random-chat" v-if="showAuthLinks" class="navbar-container__navbar__link">Random Chat
         </router-link>
-        <router-link to="/dashboard" v-if="showAuthLinks" class="navbar-container__navbar__link">Dashboard</router-link>
+        <router-link to="/dashboard" v-if="showAuthLinks" class="navbar-container__navbar__link">Dashboard
+        </router-link>
       </div>
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
@@ -23,12 +26,14 @@
         </b-nav-form>
       </b-navbar-nav>
     </b-navbar>
+    <SideNav :show="showSideNav" @sideNavClosed="showSideNav = $event"></SideNav>
   </div>
 </template>
 
 <script>
     import {createNamespacedHelpers} from 'vuex'
-    import authRes from '../resources/auth.resource'
+    import authRes from '../services/auth.service'
+    import SideNav from './SideNav'
 
     const {mapState, mapActions} = createNamespacedHelpers('auth')
 
@@ -36,11 +41,18 @@
         name: 'Header',
         data() {
             return {
-                isLoginScreen: false
+                isLoginScreen: false,
+                showSideNav: false
             }
+        },
+        components: {
+            SideNav
         },
         methods: {
             ...mapActions(['logout', 'setUserInfo', 'setAccessToken']),
+            onMenuClick: function () {
+                this.showSideNav = !this.showSideNav;
+            },
             loginWithSpotify() {
                 authRes.loginWithSpotify()
             },

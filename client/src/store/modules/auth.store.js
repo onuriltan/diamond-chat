@@ -13,7 +13,7 @@ const auth = {
   mutations: {
     updateIsAuthenticated(state, response) {
       if (response.status === 200) {
-        router.push('/dashboard')
+        router.push('/random-chat')
         state.isAuthenticated = true
         state.display_name = response.data.display_name
         state.email = response.data.email

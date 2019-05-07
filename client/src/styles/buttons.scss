@@ -47,16 +47,16 @@
 /* Spotify */
 .loginBtn--spotify {
   background-color: #1db954;
+  font-family: 'Baloo', cursive;
   border:0 !important;
   border-radius: 20px;
-  padding: 0 20px;
+  padding: 5px 40px;
   margin: 0;
-  font-size: 14px;
+  font-size: 18px;
   color: black;
-  height: 35px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .loginBtn--spotify:hover{

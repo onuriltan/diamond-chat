@@ -6,32 +6,38 @@
         Home
       </div>
     </router-link>
-    <router-link to="/about" class="sidenav__link">
+    <router-link to="/random-chat" class="sidenav__link">
       <div class="sidenav__link__wrapper" v-on:click="closeSideNav">
-        About
+        Random Chat
       </div>
     </router-link>
-    <router-link to="/projects" class="sidenav__link">
+    <router-link to="/dashboard" class="sidenav__link">
       <div class="sidenav__link__wrapper" v-on:click="closeSideNav">
-        Projects
+        Dashboard
       </div>
     </router-link>
-    <router-link to="/contact" class="sidenav__link">
-      <div class="sidenav__link__wrapper" v-on:click="closeSideNav">
-        Contact
+    <div class="sidenav__link">
+      <div class="sidenav__link__wrapper" v-on:click="closeSideNavAndLogout">
+        Logout
       </div>
-    </router-link>
-
+    </div>
   </div>
 </template>
 
 <script>
   export default {
     name: "SideNavigation",
-    props: ['show'],
+      props: {
+        show: Boolean,
+        logout: Function
+      },
     methods: {
       closeSideNav() {
         this.$emit('sideNavClosed', false);
+      },
+      closeSideNavAndLogout() {
+          this.$emit('sideNavClosed', false);
+          this.logout();
       }
     }
   }

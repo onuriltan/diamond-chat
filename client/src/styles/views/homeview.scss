@@ -9,13 +9,21 @@
     color: white;
     font-size: 40px;
     text-align: center;
+    height: 100px;
   }
   &__explanation {
-    margin-top: 20px;
+    margin: 20px  0;
     color: lightgray;
     font-size: 15px;
     width: 50%;
     text-align: center;
+  }
+  &__spotify-button {
+    @extend .loginBtn;
+    @extend .loginBtn--spotify;
+    &__image {
+      width: 30px;
+    }
   }
 }
 

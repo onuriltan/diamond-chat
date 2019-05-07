@@ -35,7 +35,7 @@ const NotFound = () => import('./views/NotFoundView.vue');
 
 export default new Router({
   mode: 'history',
-  linkActiveClass: 'active-page',
+  linkExactActiveClass: 'active-page',
   routes: [
     {
       path: '/', name: 'home', component: Home

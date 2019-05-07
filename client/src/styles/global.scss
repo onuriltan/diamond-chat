@@ -3,9 +3,11 @@
 @import "colors.scss";
 @import "buttons.scss";
 @import "inputs.scss";
+@import "links.scss";
 
 .active-page {
   color: white !important;
+  background-color: black;
 }
 
 #app {

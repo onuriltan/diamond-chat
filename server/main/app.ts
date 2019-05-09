@@ -35,7 +35,7 @@ export class ChatServer {
         dotenv.config();
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
-        this.app.use(cors({ origin: true }));
+        this.app.use(cors({origin: true}));
         this.app.use(logger('tiny')); // Log requests to API using morgan
         Routes.routes(this.app);
     }
@@ -49,8 +49,8 @@ export class ChatServer {
                 console.log("MongoDB Connected");
             })
             .catch((error) => {
-            console.log(error);
-        });
+                console.log(error);
+            });
     }
 
     private createSocket(): void {
@@ -61,10 +61,10 @@ export class ChatServer {
     }
 
     private serveSPA() {
-            // Static folder
-            this.app.use(express.static(__dirname + '/dist'));
-            // Handle SPA
-            this.app.get('*', (req: Request, res: Response) => res.sendFile(__dirname + '/dist/index.html'));
+        // Static folder
+        this.app.use(express.static(__dirname + '/dist'));
+        // Handle SPA
+        this.app.get('*', (req: Request, res: Response) => res.sendFile(__dirname + '/dist/index.html'));
 
     }
 

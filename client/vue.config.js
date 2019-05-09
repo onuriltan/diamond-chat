@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  outputDir: path.resolve(__dirname, '../server/main/dist'),
+  outputDir: path.resolve(__dirname, '../server/dist/main/dist'),
   devServer: {
     port: 8080
   },

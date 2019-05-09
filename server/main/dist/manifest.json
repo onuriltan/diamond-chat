@@ -1,0 +1,11 @@
+{
+  "name": "client",
+  "short_name": "client",
+  "icons": [
+
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#4DBA87"
+}

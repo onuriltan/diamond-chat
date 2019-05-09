@@ -61,12 +61,11 @@ export class ChatServer {
     }
 
     private serveSPA() {
-        if(process.env.NODE_ENV !== 'development') {
             // Static folder
-            this.app.use(express.static(__dirname + '/public'));
+            this.app.use(express.static(__dirname + '/dist'));
             // Handle SPA
-            this.app.get('*', (req: Request, res: Response) => res.sendFile(__dirname + '/public/index.html'));
-        }
+            this.app.get('*', (req: Request, res: Response) => res.sendFile(__dirname + '/dist/index.html'));
+
     }
 
     public getApp(): express.Application {

@@ -5,6 +5,10 @@ const UserSchema: Schema = new Schema({
     email: {
         type: String,
         lowercase: true,
+        required: true
+    },
+    spotfiyId: {
+        type: String,
         unique: true,
         required: true
     },
@@ -12,19 +16,7 @@ const UserSchema: Schema = new Schema({
         type: String,
         required: true
     },
-    firstName: {
-        type: String,
-        required: true
-    },
-    birthday: {
-        type: Date,
-        required: true
-    },
-    fbId: {
-        type: String,
-        required: true
-    },
-    gender: {
+    birthdate: {
         type: String,
         required: true
     },

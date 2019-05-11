@@ -24,7 +24,10 @@ class AuthService {
                     'playlist-read-private, ' +
                     'user-read-recently-played, ' +
                     'user-read-email, ' +
-                    'user-read-birthdate',
+                    'user-read-currently-playing, '+
+                    'user-read-birthdate, '+
+                    'user-read-playback-state',
+
                 redirect_uri: process.env.VUE_APP_SPOTIFY_REDIRECT_URI
             });
     }

@@ -15,7 +15,7 @@ export class Routes {
 
         // Auth Routes
         apiRoutes.use('/auth', authRoutes);
-        authRoutes.post('/facebook', authController.loginWithFacebook);
+        //authRoutes.post('/facebook', authController.loginWithFacebook);
         authRoutes.get('/spotify', authController.loginWithSpotify);
         authRoutes.get('/spotify/callback', authController.spotfiyCallback);
         authRoutes.post('/spotify/userInfo', authController.getSpotfiyUserInfo);

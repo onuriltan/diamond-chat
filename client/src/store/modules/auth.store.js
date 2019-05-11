@@ -1,5 +1,4 @@
 import router from '../../router'
-import jwtDecode from 'jwt-decode'
 
 const auth = {
   namespaced: true,
@@ -17,7 +16,6 @@ const auth = {
         state.isAuthenticated = true
         state.display_name = response.data.display_name
         state.email = response.data.email
-        state.gender = response.data.gender
         state.sessionExpired = false
       } else {
         setTimeout(() => {
@@ -52,22 +50,6 @@ const auth = {
         context.commit('deleteAccessToken')
         context.commit('clearUserInfo')
         router.push('/')
-    },
-    loadUser(state) {
-      let unixTimeStamp = new Date().getTime() / 1000
-      let expiration = null
-      let token = state.token
-      if (token != null) {
-        expiration = jwtDecode(token).exp
-      } else {
-        state.isAuthenticated = false
-        state.sessionExpired = true
-        this.commit('auth/clearUserInfo')
-      }
-      if (expiration != null && parseInt(expiration) - unixTimeStamp > 0) {
-        state.isAuthenticated = true
-        state.sessionExpired = false
-      }
     }
   },
   getters: {

@@ -4,16 +4,6 @@ import querystring from "querystring";
 const url = process.env.VUE_APP_AUTH_URL;
 
 class AuthService {
-    static loginWithFacebook(params) {
-        return new Promise(async (resolve) => {
-            try {
-                const res = await axios.post(`${url}/facebook`, params, {withCredentials: true});
-                resolve(res)
-            } catch (e) {
-                resolve(e.response)
-            }
-        })
-    }
 
     static loginWithSpotify() {
         window.location.href = "https://accounts.spotify.com/authorize?" +

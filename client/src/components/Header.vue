@@ -59,14 +59,14 @@
                 if (token) {
                     this.$router.replace('/');
                     authRes.getUserInfo(token)
-                        .then(function (response) {
+                        .then(response => {
                             console.log(response)
                             this.setUserInfo(response)
                             this.setAccessToken(token)
-                        }.bind(this))
-                        .catch(function (error) {
+                        })
+                        .catch(error => {
                             console.log(error);
-                        }.bind(this));
+                        });
                 }
             }
         },

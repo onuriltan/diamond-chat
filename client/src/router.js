@@ -12,7 +12,6 @@ async function requireAuth(to, from, next) {
       next(from.path)
     }
   }
-  await store.dispatch('auth/loadUser')
   proceed()
 }
 
@@ -24,7 +23,6 @@ async function alreadyLoggedIn (to, from, next) {
       next()
     }
   }
-  await store.dispatch('auth/loadUser')
   proceed()
 }
 

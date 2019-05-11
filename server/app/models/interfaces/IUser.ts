@@ -2,11 +2,9 @@ import { Document } from 'mongoose';
 
 export default interface IUser extends Document{
     email: string;
+    spotfiyId: string;
     fullName: string;
-    firstName: string;
-    birthday: Date;
-    fbId: string;
-    gender: string;
+    birthdate: string;
     role: string;
     active: boolean;
 }

@@ -2,7 +2,6 @@ import IFacebookResponse from "../interfaces/IFacebookResponse";
 
 export default class FacebookResponse implements IFacebookResponse {
 
-
     private _age_range: object;
     private _birthday: string;
     private _email: string;

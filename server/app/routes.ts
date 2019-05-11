@@ -5,6 +5,7 @@ import {Server} from 'socket.io';
 // Controllers
 import authController from './controllers/AuthController';
 import chatController from "./controllers/ChatController";
+import musicController from './controllers/MusicController';
 
 export class Routes {
 
@@ -12,15 +13,23 @@ export class Routes {
 
         let apiRoutes = express.Router();
         let authRoutes = express.Router();
+        let musicRoutes = express.Router();
+
+        // Base route
+        app.use('/api', apiRoutes);
 
         // Auth Routes
         apiRoutes.use('/auth', authRoutes);
-        authRoutes.post('/facebook', authController.loginWithFacebook);
         authRoutes.get('/spotify', authController.loginWithSpotify);
         authRoutes.get('/spotify/callback', authController.spotfiyCallback);
         authRoutes.post('/spotify/userInfo', authController.getSpotfiyUserInfo);
-        // Base route
-        app.use('/api', apiRoutes);
+
+        // Music Routes
+        apiRoutes.use('/music', musicRoutes);
+        musicRoutes.get('/top/artists', musicController.getUserTopTracks);
+        musicRoutes.get('/top/tracks', musicController.getUserTopArtists);
+        musicRoutes.post('/current/playing', musicController.getCurrentPlaying);
+
     }
 
     public static chat(io: Server): void {

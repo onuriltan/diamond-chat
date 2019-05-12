@@ -12,7 +12,6 @@ const auth = {
   mutations: {
     updateIsAuthenticated(state, response) {
       if (response.status === 200) {
-        console.log(response)
         state.display_name = response.data.display_name
         state.email = response.data.email
         state.sessionExpired = false

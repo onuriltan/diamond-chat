@@ -1,4 +1,4 @@
-import IFacebookResponse from "../interfaces/IFacebookResponse";
+import IFacebookResponse from "../../interfaces/login/IFacebookResponse";
 
 export default class FacebookResponse implements IFacebookResponse {
 

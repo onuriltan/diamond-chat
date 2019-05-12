@@ -1,4 +1,4 @@
-import ILoginResponse from "../interfaces/ILoginResponse";
+import ILoginResponse from "../../interfaces/login/ILoginResponse";
 
 export default class LoginResponse implements ILoginResponse {
     email: string;

@@ -17,7 +17,7 @@
 <script>
 import TypeIt from 'typeit'
 import {createNamespacedHelpers} from 'vuex'
-import authRes from '../services/auth.service'
+import authService from '../services/auth.service'
 
 const {mapState} = createNamespacedHelpers('auth')
 export default {
@@ -37,7 +37,7 @@ export default {
     },
     methods: {
         loginWithSpotify() {
-            authRes.loginWithSpotify()
+            authService.loginWithSpotify()
         }
     },
     watch: {

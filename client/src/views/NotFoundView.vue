@@ -24,7 +24,7 @@
         &__statement {
             text-align: center;
             font-size: 32px;
-            color: white;
+            color: $main-text-color;
             font-weight: bold;
         }
     }

@@ -33,7 +33,7 @@ export default {
 
 <style lang="scss">
   .active-page {
-    color: white !important;
+    color: $main-text-color !important;
     background-color: black;
   }
   .applyBackgroundImg {

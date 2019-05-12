@@ -1,0 +1,29 @@
+.toptracks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 50px;
+
+  &__header {
+    color: $main-text-color;
+    font-size: 24px;
+    padding-bottom: 20px;
+  }
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__track {
+      margin: 0 20px;
+      display: block;
+      &__img {
+        width: 200px;
+      }
+      &__name {
+        padding-top: 10px;
+        color: $main-text-color;
+      }
+    }
+  }
+}

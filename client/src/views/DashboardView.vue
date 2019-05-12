@@ -19,6 +19,8 @@
 
 
 <style scoped lang="scss">
-
-
+  .dashboard {
+    width: 100%;
+    height: 100%;
+  }
 </style>

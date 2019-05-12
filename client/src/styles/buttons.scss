@@ -64,12 +64,12 @@
 }
 
 %custom-button {
-  color: white;
+  color: $main-text-color;
   background: black;
-  border: 1px solid white;
+  border: 1px solid $main-text-color;
   &:hover {
     color: black !important;
-    background: white !important;
+    background: $main-text-color !important;
   }
 }
 

@@ -1,4 +1,4 @@
-import ISpotifyLoginRes from "../../interfaces/spotfiy/ISpotifyLoginRes";
+import ISpotifyLoginRes from "../../interfaces/login/ISpotifyLoginRes";
 
 export default class SpotifyLoginRes implements ISpotifyLoginRes {
 

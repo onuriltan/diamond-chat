@@ -7,7 +7,7 @@
   }
 
   &__navbar {
-    border-bottom: solid 1px white;
+    border-bottom: solid 1px $main-text-color;
     font-family: 'Baloo', cursive;
     padding: 0 50px;
     width: 100%;
@@ -16,7 +16,7 @@
     justify-content: space-around;
 
     &__bars{
-      color: white;
+      color: $main-text-color;
       display: none;
     }
 
@@ -28,7 +28,7 @@
     &__brand {
       display: flex;
       align-items: center;
-      color: white !important;
+      color: $main-text-color !important;
       font-size: 25px;
 
       &__img {

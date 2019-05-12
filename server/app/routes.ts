@@ -26,8 +26,8 @@ export class Routes {
 
         // Music Routes
         apiRoutes.use('/music', musicRoutes);
-        musicRoutes.get('/top/artists', musicController.getUserTopTracks);
-        musicRoutes.get('/top/tracks', musicController.getUserTopArtists);
+        musicRoutes.post('/top/artists', musicController.getUserTopArtists);
+        musicRoutes.post('/top/tracks', musicController.getUserTopTracks);
         musicRoutes.post('/current/playing', musicController.getCurrentPlaying);
 
     }

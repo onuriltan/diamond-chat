@@ -3,8 +3,8 @@ import axios from 'axios';
 import querystring from 'querystring';
 import request from 'request';
 import userDb from '../db/services/UserDb';
-import ISpotifyLoginRes from "../models/interfaces/spotfiy/ISpotifyLoginRes";
-import SpotfiyLoginRes from "../models/implementations/spotify/SpotfiyLoginRes";
+import ISpotifyLoginRes from "../models/interfaces/login/ISpotifyLoginRes";
+import SpotfiyLoginRes from "../models/implementations/login/SpotfiyLoginRes";
 
 export default class AuthController {
 

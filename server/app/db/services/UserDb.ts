@@ -1,5 +1,5 @@
 import UserModel from '../models/UserModel';
-import ISpotifyLoginRes from "../../models/interfaces/spotfiy/ISpotifyLoginRes";
+import ISpotifyLoginRes from "../../models/interfaces/login/ISpotifyLoginRes";
 
 export default class UserDb {
 

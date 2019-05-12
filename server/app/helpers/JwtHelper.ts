@@ -1,6 +1,6 @@
 import {Request} from "express";
 import * as jwt from 'jsonwebtoken'
-import IJwtSign from "../models/interfaces/IJwtSign";
+import IJwtSign from "../models/interfaces/login/IJwtSign";
 
 export default class JwtHelper {
 

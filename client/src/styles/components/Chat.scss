@@ -22,13 +22,13 @@
     padding: 20px;
 
     &__typing {
-      color: white !important;
+      color: $main-text-color !important;
       padding: 20px 0;
     }
 
     &__message {
       padding: 5px 0;
-      color: white;
+      color: $main-text-color;
       font-size: 17px;
     }
 
@@ -60,7 +60,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    color: white;
+    color: $main-text-color;
     &__loader {
       margin-top: 20px;
     }
@@ -78,7 +78,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    color: white;
+    color: $main-text-color;
     &__message {
       font-size: 26px;
     }

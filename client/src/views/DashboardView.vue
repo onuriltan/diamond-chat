@@ -1,22 +1,26 @@
 <template>
-
-
+  <div class="dashboard">
+    <TopTracks/>
+  </div>
 </template>
 
-<script>
-  import {createNamespacedHelpers} from 'vuex'
 
-  const {mapState} = createNamespacedHelpers('auth')
+<script>
+  import TopTracks from '../components/TopTracks'
+
   export default {
     name: 'DashboardView',
-    computed: {
-      ...mapState(['isAuthenticated'])  // assuming you are using namespaced modules
-    },
+    components: {
+      TopTracks
+    }
+
   };
 </script>
 
-<style scoped>
-  #app {
-    background: black
+
+<style scoped lang="scss">
+  .dashboard {
+    width: 100%;
+    height: 100%;
   }
 </style>

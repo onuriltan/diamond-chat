@@ -1,4 +1,4 @@
-import IJwtSign from "../interfaces/IJwtSign";
+import IJwtSign from "../../interfaces/login/IJwtSign";
 
 export default class JwtSign implements IJwtSign {
     private _email: string;

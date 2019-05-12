@@ -12,14 +12,14 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: $main-text-color;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 40px;
 
   .router-link-exact-active {
     background-color: black;
-    color: white;
+    color: $main-text-color;
   }
 
   &__link {

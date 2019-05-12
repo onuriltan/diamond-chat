@@ -60,7 +60,6 @@
                     this.$router.replace('/');
                     authRes.getUserInfo(token)
                         .then(response => {
-                            console.log(response)
                             this.setUserInfo(response)
                             this.setAccessToken(token)
                         })

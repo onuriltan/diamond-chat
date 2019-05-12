@@ -10,20 +10,15 @@
     font-size: 24px;
     padding-bottom: 20px;
   }
-  &__container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     &__track {
-      margin: 0 20px;
-      display: block;
+      width: 200px!important;
       &__img {
         width: 200px;
       }
       &__name {
+        width: 200px;
         padding-top: 10px;
         color: $main-text-color;
       }
-    }
   }
 }

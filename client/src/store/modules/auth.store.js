@@ -12,12 +12,15 @@ const auth = {
   mutations: {
     updateIsAuthenticated(state, response) {
       if (response.status === 200) {
-        router.push('/random-chat')
-        state.isAuthenticated = true
+        console.log(response)
         state.display_name = response.data.display_name
         state.email = response.data.email
         state.sessionExpired = false
+        state.isAuthenticated = true
+        router.push('/dashboard')
       } else {
+        state.sessionExpired = true
+        state.isAuthenticated = false
         setTimeout(() => {
           router.push('/')
         }, 2000)

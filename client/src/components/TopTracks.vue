@@ -56,6 +56,7 @@
       async playMusic(audioUrl) {
         if (this.audio == null) {
           this.audio = new Audio(audioUrl);
+          this.audio.volume = 0.2;
         }
         if (this.isMusicPlaying) {
           await this.audio.pause();

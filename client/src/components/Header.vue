@@ -5,7 +5,7 @@
         <i class="navbar-container__navbar__bars fa fa-bars fa-2x" v-if="showAuthLinks" @click="onMenuClick" aria-hidden="true"></i>
 
         <router-link to="/" class="navbar-brand navbar-container__navbar__brand">
-          <img src="../assets/diamondwhite.svg" width="50" height="50" class="navbar-container__navbar__brand__img"
+          <img src="../assets/icons/diamondwhite.svg" width="50" height="50" class="navbar-container__navbar__brand__img"
                alt="diamond">
           DIAMOND CHAT
         </router-link>

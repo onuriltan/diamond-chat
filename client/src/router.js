@@ -36,7 +36,7 @@ export default new Router({
   linkExactActiveClass: 'active-page',
   routes: [
     {
-      path: '/', name: 'home', component: Home
+      path: '/', name: 'home', component: Home, beforeEnter: alreadyLoggedIn
     },
     {
       path: '/dashboard', name: 'dashboard', component: Dashboard, beforeEnter: requireAuth

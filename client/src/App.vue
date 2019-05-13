@@ -37,7 +37,7 @@ export default {
     background-color: black;
   }
   .applyBackgroundImg {
-    background: url('~@/assets/ds1.jpg') no-repeat fixed center black;
+    background: url('~@/assets/images/dsofthemoon.jpg') no-repeat fixed center black;
   }
 
   #app {

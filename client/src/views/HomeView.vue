@@ -6,7 +6,7 @@
     </div>
     <button class="home__spotify-button" v-if="showLoginLink"
             @click="loginWithSpotify" type="button">
-      <img src="../assets/spotify-b.png" class="home__spotify-button__image"
+      <img src="../assets/icons/spotify-b.png" class="home__spotify-button__image"
            alt="spotify">
       Login with Spotify
     </button>

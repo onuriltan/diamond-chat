@@ -3,12 +3,20 @@
     <div class="toptracks__header">
       TOP TRACKS
     </div>
-    <Carousel :per-page="4" style="width: 80%" pagination-enabled="false" loop="true" speed="800" >
+    <Carousel :per-page="4" style="width: 80%" :loop="true"
+              :speed="1000" :navigationEnabled="true" paginationActiveColor="#1db954"
+              :navigationClickTargetSize="20">
       <Slide v-for="track in tracks" :key="track.id" class="toptracks__track">
-          <img :src="track.imageUrl" class="toptracks__track__img" :alt="track.trackName"/>
-          <div class="toptracks__track__name">
-            {{track.artistName}} - {{track.trackName}}
-          </div>
+        <div class="toptracks__track__container">
+          <img :src="track.imageUrl" class="toptracks__track__container__img"
+               @click="playMusic(track.trackUrl)" :alt="track.trackName">
+        </div>
+        <div class="toptracks__track__play">
+          <img src="../assets/icons/play-button.svg" class="toptracks__track__play__img" alt="play_button">
+        </div>
+        <div class="toptracks__track__name">
+          {{track.artistName}} - {{track.trackName}}
+        </div>
       </Slide>
     </Carousel>
   </div>
@@ -25,7 +33,9 @@
     name: "TopTracks",
     data() {
       return {
-        tracks: []
+        tracks: [],
+        isMusicPlaying: false,
+        audio: null
       }
     },
     components: {
@@ -39,18 +49,32 @@
       getTopTracks() {
         musicService.getTopTracks(this.token).then(response => {
           this.tracks = response.data;
-          console.log(this.tracks)
         }).catch(error => {
           alert(error)
         })
+      },
+      async playMusic(audioUrl) {
+        if (this.audio == null) {
+          this.audio = new Audio(audioUrl);
+        }
+        if (this.isMusicPlaying) {
+          await this.audio.pause();
+          this.audio.currentTime = 0;
+          this.audio = null;
+          this.isMusicPlaying = false
+        } else {
+          await this.audio.play()
+          this.isMusicPlaying = true
+        }
       }
-    },
-    computed: {
-      ...mapState(['token']),
-    }
+  },
+  computed: {
+  ...
+    mapState(['token']),
+  }
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import "../styles/components/TopTracks";
 </style>

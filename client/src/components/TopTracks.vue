@@ -9,10 +9,16 @@
       <Slide v-for="track in tracks" :key="track.id" class="toptracks__track">
         <div class="toptracks__track__container">
           <img :src="track.imageUrl" class="toptracks__track__container__img"
-               @click="playMusic(track.trackUrl)" :alt="track.trackName">
+               :class="{'toptracks__track__container__img--clicked' : currentTrack === track.id }"
+                :alt="track.trackName">
         </div>
-        <div class="toptracks__track__play">
-          <img src="../assets/icons/play-button.svg" class="toptracks__track__play__img" alt="play_button">
+        <div class="toptracks__track__play" :class="{'toptracks__track__play--clicked' : currentTrack === track.id }">
+          <img src="../assets/icons/pause-img.svg"
+               @click="playMusic(track.trackUrl, track.id)"
+               class="toptracks__track__play__img" alt="pause_img" v-if="currentTrack === track.id">
+          <img src="../assets/icons/play-img.svg"
+               @click="playMusic(track.trackUrl, track.id)"
+               class="toptracks__track__play__img" alt="play_img" v-else>
         </div>
         <div class="toptracks__track__name">
           {{track.artistName}} - {{track.trackName}}
@@ -35,7 +41,8 @@
       return {
         tracks: [],
         isMusicPlaying: false,
-        audio: null
+        audio: null,
+        currentTrack: null
       }
     },
     components: {
@@ -53,19 +60,22 @@
           alert(error)
         })
       },
-      async playMusic(audioUrl) {
+      async playMusic(audioUrl, trackId) {
         if (this.audio == null) {
           this.audio = new Audio(audioUrl);
           this.audio.volume = 0.2;
+          this.currentTrack = trackId
         }
         if (this.isMusicPlaying) {
           await this.audio.pause();
           this.audio.currentTime = 0;
           this.audio = null;
           this.isMusicPlaying = false
+          this.currentTrack = null
         } else {
           await this.audio.play()
           this.isMusicPlaying = true
+          this.currentTrack = trackId
         }
       }
   },

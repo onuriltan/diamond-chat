@@ -10,7 +10,7 @@
         <div class="toptracks__track__container">
           <img :src="track.imageUrl" class="toptracks__track__container__img"
                :class="{'toptracks__track__container__img--clicked' : currentTrack === track.id }"
-                :alt="track.trackName">
+               :alt="track.trackName">
         </div>
         <div class="toptracks__track__play" :class="{'toptracks__track__play--clicked' : currentTrack === track.id }">
           <img src="../assets/icons/pause-img.svg"
@@ -68,21 +68,28 @@
         }
         if (this.isMusicPlaying) {
           await this.audio.pause();
-          this.audio.currentTime = 0;
-          this.audio = null;
-          this.isMusicPlaying = false
-          this.currentTrack = null
+          if (trackId !== this.currentTrack) {
+            this.audio = new Audio(audioUrl);
+            await this.audio.play()
+            this.audio.currentTime = 0;
+            this.audio.volume = 0.2;
+            this.currentTrack = trackId
+          } else {
+            this.audio.currentTime = 0;
+            this.audio = null;
+            this.isMusicPlaying = false
+            this.currentTrack = null
+          }
         } else {
           await this.audio.play()
           this.isMusicPlaying = true
           this.currentTrack = trackId
         }
       }
-  },
-  computed: {
-  ...
-    mapState(['token']),
-  }
+    },
+    computed: {
+      ...mapState(['token']),
+    }
   }
 </script>
 

@@ -21,23 +21,26 @@
         width: 200px;
         height: auto;
 
-        &:hover {
+        &--clicked {
           opacity: 0.5;
-          cursor: pointer;
         }
       }
     }
 
     &__play {
-      position: absolute;
-      top: 28%;
-      width: 40px;
-      margin: 0 auto;
-      z-index: -1;
+      width: 45px;
+      height: 45px;
+      margin-top: 10px;
 
       &__img {
-        width: 50px;
+        width: 40px;
         height: auto;
+        transition: all .2s ease-in-out;
+
+        &:hover {
+          transform: scale(1.1);
+          cursor: pointer;
+        }
       }
     }
 
@@ -75,47 +78,42 @@
           width: 150px;
         }
       }
+
       &__name {
         width: 150px;
         font-size: 14px;
       }
     }
+
   }
 
-}
+  @media screen and (max-width: 768px) {
+    .toptracks {
+      &__track {
+        &__container {
+          &__img {
+            width: 100px;
+          }
+        }
 
-@media screen and (max-width: 768px) {
-  .toptracks {
-    &__track {
-      &__container {
-        &__img {
+        &__name {
           width: 100px;
+          font-size: 12px;
+        }
+
+        &__play {
+          width: 35px;
+          height: 35px;
+
+          &__img {
+            width: 30px;
+          }
         }
       }
-      &__name {
-        width: 100px;
-        font-size: 12px;
       }
     }
+
   }
 
-}
-
-@media screen and (max-width: 768px) {
-  .toptracks {
-    &__track {
-      &__container {
-        &__img {
-          width: 100px;
-        }
-      }
-      &__name {
-        width: 100px;
-        font-size: 12px;
-      }
-    }
-  }
-
-}
 
 

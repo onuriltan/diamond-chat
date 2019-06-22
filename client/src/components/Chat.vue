@@ -26,7 +26,7 @@
           Waiting for the music junkie...
         </div>
         <div class="chat-dashboard__waiting__loader">
-          <i class="fa fa-refresh fa-spin fa-5x"></i>
+          <i class="fas fa-sync-alt fa-spin fa-5x"></i>
         </div>
       </div>
 

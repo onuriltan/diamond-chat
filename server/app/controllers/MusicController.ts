@@ -5,8 +5,10 @@ import Track from '../models/implementations/music/Track'
 export default class MusicController {
 
     static async getUserTopTracks(req: Request, res: Response, next: NextFunction) {
-        axios.defaults.headers.common = {'Authorization': `Bearer ${req.body.token}`};
-        let response = await axios.get(process.env.SPOTIFY_TOP_TRACKS_URL as string);
+        let response = await MusicController.getRequest(process.env.SPOTIFY_TOP_TRACKS_URL as string, req.body.token);
+        if(response.status === 401){
+            return res.status(401).send({"error": "access token expired"})
+        }
         let convertedRes = MusicController.convertTracks(response.data.items);
         if(response.status === 200) {
             return res.status(200).send(convertedRes);
@@ -16,9 +18,10 @@ export default class MusicController {
     }
 
     static async getUserTopArtists(req: Request, res: Response, next: NextFunction) {
-        axios.defaults.headers.common = {'Authorization': `Bearer ${req.body.token}`};
-        let response = await axios.get(process.env.SPOTIFY_TOP_ARTISTS_URL as string);
-
+        let response = await MusicController.getRequest(process.env.SPOTIFY_TOP_ARTISTS_URL as string, req.body.token);
+        if(response.status === 401){
+            return res.status(401).send({"error": "access token expired"})
+        }
         if(response.status === 200) {
             return res.status(200).send(response.data);
         }else {
@@ -27,8 +30,10 @@ export default class MusicController {
     }
 
     static async getCurrentPlaying(req: Request, res: Response, next: NextFunction) {
-        axios.defaults.headers.common = {'Authorization': `Bearer ${req.body.token}`};
-        let response = await axios.get(process.env.SPOTIFY_CURRENT_PLAYING_URL as string);
+        let response = await MusicController.getRequest(process.env.SPOTIFY_CURRENT_PALYING_URL as string, req.body.token);
+        if(response.status === 401){
+            return res.status(401).send({"error": "access token expired"})
+        }
         if(response.status === 200) {
             return res.status(200).send(response.data);
         }else {
@@ -48,6 +53,15 @@ export default class MusicController {
             tracks.push(t);
         }
         return tracks;
+    }
+
+    static async getRequest (url: string, token: string) {
+        axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
+        try {
+            return await axios.get(url)
+        } catch (error) {
+            return error.response
+        }
     }
 
 }

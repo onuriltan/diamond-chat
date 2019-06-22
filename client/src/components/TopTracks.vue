@@ -3,7 +3,7 @@
     <div class="toptracks__header">
       TOP TRACKS
     </div>
-    <Carousel :per-page="4" style="width: 80%" :loop="true"
+    <Carousel :per-page="4" style="width: 80%" :loop="true" v-if="tracks.length>0"
               :speed="1000" :navigationEnabled="true" paginationActiveColor="#1db954"
               :navigationClickTargetSize="20">
       <Slide v-for="track in tracks" :key="track.id" class="toptracks__track">
@@ -25,6 +25,9 @@
         </div>
       </Slide>
     </Carousel>
+    <div v-else style="padding-top: 50px">
+      <i class="fas fa-sync-alt fa-spin fa-5x" style="color: white"></i>
+    </div>
   </div>
 </template>
 
@@ -49,7 +52,7 @@
       Carousel,
       Slide
     },
-    mounted() {
+    created() {
       this.getTopTracks()
     },
     methods: {

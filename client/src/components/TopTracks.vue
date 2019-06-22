@@ -5,7 +5,7 @@
     </div>
     <Carousel :per-page="4" style="width: 80%" :loop="true" v-if="tracks.length>0"
               :speed="1000" :navigationEnabled="true" paginationActiveColor="#1db954"
-              :navigationClickTargetSize="20">
+              :navigationClickTargetSize="20" >
       <Slide v-for="track in tracks" :key="track.id" class="toptracks__track">
         <div class="toptracks__track__container">
           <img :src="track.imageUrl" class="toptracks__track__container__img"
@@ -52,7 +52,7 @@
       Carousel,
       Slide
     },
-    created() {
+    mounted() {
       this.getTopTracks()
     },
     methods: {

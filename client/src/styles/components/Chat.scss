@@ -19,7 +19,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0 20px;
 
     &__typing {
       color: $main-text-color !important;
@@ -27,9 +27,10 @@
     }
 
     &__message {
-      padding: 5px 0;
       color: $main-text-color;
-      font-size: 17px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      @extend .chat-bubble
     }
 
   }
@@ -38,6 +39,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: hsla(0,0%,100%,.6);
 
     &__inputgroup {
       flex-wrap: unset;

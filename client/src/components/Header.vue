@@ -10,6 +10,7 @@
           DIAMOND CHAT
         </router-link>
       </div>
+
       <div class="navbar-container__elements">
 
         <div class="navbar navbar-container__navbar__auth-links">
@@ -41,7 +42,19 @@
         data() {
             return {
                 isLoginScreen: false,
-                showSideNav: false
+                showSideNav: false,
+                images: [
+                  {
+                  name:'second',
+                  src:'icons/play-img.svg',
+                  subtitle: 'Sarcophagus'
+                },
+                  {
+                    name:'second',
+                    src:'icons/play-img.svg',
+                    subtitle: 'Sarcophagus'
+                  }
+                ],
             }
         },
         components: {
@@ -83,7 +96,7 @@
 
         },
         watch: {
-            $route(to, from) {
+            $route(to) {
                 this.isLoginScreen = to.path === "/login";
             },
             '$route.query.access_token': function (token) {

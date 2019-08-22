@@ -17,11 +17,6 @@
   transition: 0.5s;
   padding-top: 40px;
 
-  .router-link-exact-active {
-    background-color: black;
-    color: $main-text-color;
-  }
-
   &__link {
     display: flex;
     margin: 1em;

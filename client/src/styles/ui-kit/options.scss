@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
+.router-link-exact-active {
+  background-color: black;
+  color: $main-text-color;
+}
+

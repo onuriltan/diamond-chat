@@ -41,7 +41,7 @@ export default {
         }
     },
     watch: {
-        $route(to, from) {
+        $route(to) {
             this.isLoginScreen = to.path === "/login";
         }
     },

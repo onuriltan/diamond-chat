@@ -31,7 +31,7 @@
 .loginBtn--spotify {
   background-color: $spotfiy-green-color;
   font-family: 'Baloo', cursive;
-  border:0 !important;
+  border: 2px solid $spotfiy-green-color !important;
   border-radius: 20px;
   padding: 5px 40px;
   margin: 0;
@@ -43,7 +43,10 @@
 }
 
 .loginBtn--spotify:hover{
-  opacity: 0.8;
+  transition: 0.3s;
+  color: black;
+  border: 2px solid $spotfiy-green-color !important;
+  background-color: white;
 }
 
 %custom-button {

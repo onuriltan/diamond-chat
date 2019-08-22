@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   outputDir: path.resolve(__dirname, '../server/dist/main/dist'),
   devServer: {
-    port: 3000
+    port: 8090
   },
   pluginOptions: {
     'style-resources-loader': {

@@ -1,0 +1,22 @@
+.active-page {
+  color: $main-text-color !important;
+  background-color: black;
+}
+.applyBackgroundImg {
+  background: url('~@/assets/images/dsofthemoon.jpg') no-repeat fixed center black;
+}
+
+#app {
+  min-height: 100vh;
+  background-size: contain;
+}
+#content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  overflow: hidden;
+  font-family: 'Capriola', sans-serif;
+}

@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server/dist/main/index.js",
     "dev": "npm run build:live",
+    "server": "npm run dev",
+    "client": "npm run serve --prefix client",
     "build": "node_modules/.bin/tsc -p .",
     "build:live": "node_modules/.bin/nodemon --watch '*.ts' --exec 'ts-node' server/main/index.ts",
     "tsc": "node_modules/.bin/tsc",
@@ -15,17 +17,17 @@
   "author": "Onur Iltan",
   "license": "MIT",
   "dependencies": {
-    "@types/body-parser": "^1.17.0",
-    "@types/cookie-parser": "^1.4.1",
-    "@types/cors": "^2.8.5",
+    "@types/body-parser": "^1.17.1",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.6",
     "@types/dotenv": "^6.1.1",
-    "@types/express": "^4.17.0",
-    "@types/jsonwebtoken": "^8.3.2",
-    "@types/mongodb": "^3.1.28",
-    "@types/mongoose": "^5.5.5",
-    "@types/morgan": "^1.7.35",
+    "@types/express": "^4.17.1",
+    "@types/jsonwebtoken": "^8.3.3",
+    "@types/mongodb": "^3.3.0",
+    "@types/mongoose": "^5.5.13",
+    "@types/morgan": "^1.7.37",
     "@types/query-string": "^6.3.0",
-    "@types/request": "^2.48.1",
+    "@types/request": "^2.48.2",
     "@types/socket.io": "^2.1.2",
     "axios": "^0.18.1",
     "bcrypt": "^3.0.6",
@@ -36,18 +38,18 @@
     "dotenv": "^6.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.0",
-    "mongodb": "^3.2.7",
-    "mongoose": "^5.5.14",
+    "mongodb": "^3.3.0",
+    "mongoose": "^5.6.10",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "querystring": "^0.2.0",
     "request": "^2.88.0",
     "socket.io": "^2.2.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.3"
   },
   "devDependencies": {
-    "@types/node": "^11.13.13",
+    "@types/node": "^11.13.19",
     "nodemon": "^1.19.1",
-    "ts-node": "^8.2.0"
+    "ts-node": "^8.3.0"
   }
 }

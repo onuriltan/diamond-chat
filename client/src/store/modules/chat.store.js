@@ -6,26 +6,26 @@ const chat = {
     room: null,
     chatStatus: null,
     messages: [],
-
   },
   mutations: {
     addChatItemToChatArray (state, chatItem) {
       state.chatArray = [...state.chatArray, chatItem]
     },
-    setTyping (state, typing) {
+    setTypingToStore (state, typing) {
       state.typing = typing
     },
-    setRoom (state, room) {
+    setRoomToStore (state, room) {
       state.room = room
     },
-    setChatStatus (state, chatStatus) {
+    setChatStatusToStore (state, chatStatus) {
       state.chatStatus = chatStatus
     },
-    addMessage(state, message) {
+    addMessageToStore(state, message) {
       state.messages = [...state.messages, message]
     },
-    clearMessages(state) {
+    clearMessagesFromStore(state) {
       state.messages = []
+      state.chatArray = []
     }
   },
   actions: {
@@ -33,19 +33,19 @@ const chat = {
       context.commit('addChatItemToChatArray', chatItem)
     },
     setTyping(context, data) {
-      context.commit('setTyping', data)
+      context.commit('setTypingToStore', data)
     },
     setRoom(context, data) {
-      context.commit('setRoom', data)
+      context.commit('setRoomToStore', data)
     },
     setChatStatus(context, data) {
-      context.commit('setChatStatus', data)
+      context.commit('setChatStatusToStore', data)
     },
     addMessage(context, data) {
-      context.commit('addMessage', data)
+      context.commit('addMessageToStore', data)
     },
     clearMessages(context, data) {
-      context.commit('clearMessages', data)
+      context.commit('clearMessagesFromStore', data)
     },
   },
   getters: {

@@ -43,24 +43,28 @@
 
 <script>
   import io from 'socket.io-client';
-  import {createNamespacedHelpers} from 'vuex'
-
-  const {mapState} = createNamespacedHelpers('auth')
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     data() {
       return {
         socket: io(process.env.VUE_APP_SOCKET_URL),
         user: '',
-        message: '',
-        messages: [],
-        typing: null,
-        room: null,
-        chatStatus: null,
+        message: ''
       };
     },
     computed: {
-      ...mapState(['isAuthenticated', 'firstName']),
+      ...mapState('auth', {
+        isAuthenticated: state => state.isAuthenticated,
+        firstName: state => state.firstName,
+      }),
+      ...mapState('chat', {
+        chatArray: state => state.chatArray,
+        typing: state => state.typing,
+        room: state => state.room,
+        chatStatus: state => state.chatStatus,
+        messages: state => state.messages,
+      })
     },
     watch: {
       message(value) {
@@ -74,52 +78,58 @@
       }
     },
     methods: {
+      ...mapActions('chat', [ 'addChatItem', 'setTyping', 'setRoom', 'setChatStatus', 'addMessage', 'clearMessages' ]),
+
       sendMessage() {
         if (this.message !== '') {
-          this.messages.push({message: this.message, type: 0});
           this.socket.emit('CHAT_MESSAGE', {message: this.message, room: this.room});
+          this.addMessage({message: this.message, type: 0})
           this.message = null;
         }
       },
       findAnother() {
-        this.messages = []
+        this.clearMessages();
         this.socket.emit('LOGIN', 'Onur');
+      },
+      resetChat() {
+        this.socket.emit('DISCONNECT', 'Onur');
+        this.setChatStatus(1);
+        this.setRoom(null)
+        this.setTyping(false);
+        this.clearMessages();
       }
     },
     created() {
-      console.log('created')
       this.socket.emit('LOGIN', 'Onur');
       this.socket.on('CREATED', data => {
         console.log(data);
       });
       this.socket.on('LOGIN_RESPONSE', data => {
-        console.log(data.message, ", code: " + data.type)
-        this.chatStatus = 0
+        this.setChatStatus(0);
       });
       this.socket.on('CHAT_START', data => {
-        console.log("Chat is started in room " + data.room)
-        this.room = data.room;
-        this.chatStatus = 1
+        this.setRoom(data.room);
+        this.setChatStatus(1);
       });
       this.socket.on('CHAT_MESSAGE', data => {
-        this.messages.push({message: data, type: 1});
+        this.addMessage({message: data, type: 1})
       });
       this.socket.on('TYPING', data => {
-        this.typing = true;
+        this.setTyping(true);
       });
       this.socket.on('TYPING_STOPPED', data => {
-        this.typing = false;
+        this.setTyping(false);
       });
       this.socket.on('CHAT_END', data => {
-        console.log("Chat ended");
-        this.chatStatus = 2
+        this.setChatStatus(2);
+        this.resetChat()
       });
     },
     beforeDestroy() {
-      this.socket.emit('DISCONNECT', 'Onur');
-      console.log(this.socket)
+      this.resetChat()
     }
   };
+
 </script>
 
 <style scoped lang="scss">

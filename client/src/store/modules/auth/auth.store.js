@@ -68,7 +68,7 @@ const auth = {
     setSessionExpired(context, isExpired) {
       context.commit(SESSION_EXPIRED, isExpired);
       setTimeout(() =>  {
-        context.commit(CLEAR_USER_INFO)
+        context.commit(CLEAR_USER_INFO);
         router.push('/')
       }, 1500)
     }

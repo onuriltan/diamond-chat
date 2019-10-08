@@ -1,0 +1,31 @@
+.custom-alert {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  overflow: hidden;
+  &__icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__icon {
+      width: 120px;
+    }
+  }
+  &__message {
+    max-width: 600px;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+}

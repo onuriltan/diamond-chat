@@ -72,19 +72,18 @@
       },
       messages() {
         this.$refs['chat-dashboard'].scrollTo({
-          top: this.$refs['chat-dashboard'].scrollHeight + 100,
+          top: this.$refs['chat-dashboard'].scrollHeight + 200,
           behavior: 'smooth'
         })
       }
     },
     methods: {
       ...mapActions('chat', [ 'addChatItem', 'setTyping', 'setRoom', 'setChatStatus', 'addMessage', 'clearMessages' ]),
-
       sendMessage() {
         if (this.message !== '') {
           this.socket.emit('CHAT_MESSAGE', {message: this.message, room: this.room});
           this.addMessage({message: this.message, type: 0})
-          this.message = null;
+          this.message = '';
         }
       },
       findAnother() {

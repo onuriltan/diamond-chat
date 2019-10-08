@@ -33,10 +33,9 @@
 
 <script>
   import musicService from '../services/music.service'
-  import {createNamespacedHelpers} from 'vuex'
-  import {Carousel, Slide} from 'vue-carousel';
+  import { Carousel, Slide } from 'vue-carousel';
+  import { mapState, mapActions } from 'vuex'
 
-  const {mapState} = createNamespacedHelpers('auth')
 
   export default {
     name: "TopTracks",
@@ -56,42 +55,47 @@
       this.getTopTracks()
     },
     methods: {
+      ...mapActions('auth', [ 'logout', 'setSessionExpired' ]),
       getTopTracks() {
         musicService.getTopTracks(this.token).then(response => {
           this.tracks = response.data;
         }).catch(error => {
-          alert(error)
+          if(error.response.status === 401) {
+            this.setSessionExpired(true)
+          }
         })
       },
       async playMusic(audioUrl, trackId) {
         if (this.audio == null) {
           this.audio = new Audio(audioUrl);
           this.audio.volume = 0.2;
-          this.currentTrack = trackId
+          this.currentTrack = trackId;
         }
         if (this.isMusicPlaying) {
           await this.audio.pause();
           if (trackId !== this.currentTrack) {
             this.audio = new Audio(audioUrl);
-            await this.audio.play()
+            await this.audio.play();
             this.audio.currentTime = 0;
             this.audio.volume = 0.2;
-            this.currentTrack = trackId
+            this.currentTrack = trackId;
           } else {
             this.audio.currentTime = 0;
             this.audio = null;
-            this.isMusicPlaying = false
-            this.currentTrack = null
+            this.isMusicPlaying = false;
+            this.currentTrack = null;
           }
         } else {
-          await this.audio.play()
-          this.isMusicPlaying = true
-          this.currentTrack = trackId
+          await this.audio.play();
+          this.isMusicPlaying = true;
+          this.currentTrack = trackId;
         }
       }
     },
     computed: {
-      ...mapState(['token']),
+      ...mapState('auth', {
+        token: state => state.token,
+      }),
     }
   }
 </script>

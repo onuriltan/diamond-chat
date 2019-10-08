@@ -1,5 +1,4 @@
 .chat-dashboard {
-
   position: relative;
 
   &:before {
@@ -19,7 +18,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    padding: 10px 20px 0 20px;
 
     &__typing {
       color: $main-text-color !important;

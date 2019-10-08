@@ -1,3 +1,12 @@
+import {
+  CLEAR_MESSAGES,
+  ADD_MESSAGE,
+  ADD_CHAT_ITEM,
+  SET_CHAT_STATUS,
+  SET_ROOM,
+  SET_TYPING
+} from "./chat.types";
+
 const chat = {
   namespaced: true,
   state: {
@@ -8,45 +17,45 @@ const chat = {
     messages: [],
   },
   mutations: {
-    addChatItemToChatArray (state, chatItem) {
+    [ADD_CHAT_ITEM] (state, chatItem) {
       state.chatArray = [...state.chatArray, chatItem]
     },
-    setTypingToStore (state, typing) {
+    [SET_TYPING] (state, typing) {
       state.typing = typing
     },
-    setRoomToStore (state, room) {
+    [SET_ROOM] (state, room) {
       state.room = room
     },
-    setChatStatusToStore (state, chatStatus) {
+    [SET_CHAT_STATUS] (state, chatStatus) {
       state.chatStatus = chatStatus
     },
-    addMessageToStore(state, message) {
+    [ADD_MESSAGE](state, message) {
       state.messages = [...state.messages, message]
     },
-    clearMessagesFromStore(state) {
-      state.messages = []
+    [CLEAR_MESSAGES](state) {
+      state.messages = [];
       state.chatArray = []
     }
   },
   actions: {
     addChatItem(context, chatItem) {
-      context.commit('addChatItemToChatArray', chatItem)
+      context.commit(ADD_CHAT_ITEM, chatItem)
     },
     setTyping(context, data) {
-      context.commit('setTypingToStore', data)
+      context.commit(SET_TYPING, data)
     },
     setRoom(context, data) {
-      context.commit('setRoomToStore', data)
+      context.commit(SET_ROOM, data)
     },
     setChatStatus(context, data) {
-      context.commit('setChatStatusToStore', data)
+      context.commit(SET_CHAT_STATUS, data)
     },
     addMessage(context, data) {
-      context.commit('addMessageToStore', data)
+      context.commit(ADD_MESSAGE, data)
     },
     clearMessages(context, data) {
-      context.commit('clearMessagesFromStore', data)
-    },
+      context.commit(CLEAR_MESSAGES, data)
+    }
   },
   getters: {
     getChatArray : state =>  {

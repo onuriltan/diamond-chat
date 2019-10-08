@@ -7,7 +7,7 @@ import store from './store/index';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(BootstrapVue);
-
+window.localStorage.clear();
 Vue.config.productionTip = false;
 
 new Vue({

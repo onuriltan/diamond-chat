@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate'
 
 // modules
-import auth from './modules/auth.store';
-import chat from './modules/chat.store';
+import auth from './modules/auth/auth.store';
+import chat from './modules/chat/chat.store';
 
 Vue.use(Vuex);
 

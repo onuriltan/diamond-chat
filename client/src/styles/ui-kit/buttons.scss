@@ -29,9 +29,9 @@
 
 /* Spotify */
 .loginBtn--spotify {
-  background-color: $spotfiy-green-color;
+  background-color: $spotify-green-color;
   font-family: 'Baloo', cursive;
-  border: 2px solid $spotfiy-green-color !important;
+  border: 2px solid $spotify-green-color !important;
   border-radius: 20px;
   padding: 5px 40px;
   margin: 0;
@@ -45,7 +45,7 @@
 .loginBtn--spotify:hover{
   transition: 0.3s;
   color: black;
-  border: 2px solid $spotfiy-green-color !important;
+  border: 2px solid $spotify-green-color !important;
   background-color: white;
 }
 

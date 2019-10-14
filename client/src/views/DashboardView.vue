@@ -6,7 +6,7 @@
 
 
 <script>
-  import TopTracks from '../components/TopTracks'
+  import TopTracks from '../components/topTracks/TopTracks'
 
   export default {
     name: 'DashboardView',

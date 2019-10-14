@@ -17,6 +17,9 @@
     align-items: center;
 
     &__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       &__img {
         width: 200px;
         height: auto;
@@ -24,31 +27,43 @@
         &--clicked {
           opacity: 0.5;
         }
+        &--clicked .toptracks__track__container__play{
+          display: block !important
+        }
       }
-    }
+      &:hover .toptracks__track__container__play{
+        display:block
+      }
 
-    &__play {
-      width: 45px;
-      height: 45px;
-      margin-top: 10px;
+      &__play {
+        width: 45px;
+        height: 45px;
+        top: 25%;
+        margin:0 auto;
+        position: absolute;
+        display: none;
 
-      &__img {
-        width: 40px;
-        height: auto;
-        transition: all .2s ease-in-out;
+        &__img {
+          width: 40px;
+          height: auto;
+          transition: all .2s ease-in-out;
 
-        &:hover {
-          transform: scale(1.1);
-          cursor: pointer;
+          &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+          }
         }
       }
     }
+
+
 
     &__name {
       text-align: center;
       width: 200px;
       padding-top: 10px;
       color: $main-text-color;
+      font-size: 12px;
     }
   }
 }
@@ -81,7 +96,7 @@
 
       &__name {
         width: 150px;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
 

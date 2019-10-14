@@ -5,8 +5,8 @@
   "main": "server/main/app.ts",
   "scripts": {
     "start": "node server/dist/main/index.js",
-    "dev": "npm run build:live",
-    "server": "npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm run build:live",
     "client": "npm run serve --prefix client",
     "build": "node_modules/.bin/tsc -p .",
     "build:live": "node_modules/.bin/nodemon --watch '*.ts' --exec 'ts-node' server/main/index.ts",
@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@types/node": "^11.13.19",
+    "concurrently": "^5.0.0",
     "nodemon": "^1.19.1",
     "ts-node": "^8.3.0"
   }

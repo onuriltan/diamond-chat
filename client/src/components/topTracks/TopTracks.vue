@@ -11,14 +11,14 @@
           <img :src="track.imageUrl" class="toptracks__track__container__img"
                :class="{'toptracks__track__container__img--clicked' : currentTrack === track.id }"
                :alt="track.trackName">
-        </div>
-        <div class="toptracks__track__play" :class="{'toptracks__track__play--clicked' : currentTrack === track.id }">
-          <img src="../assets/icons/pause-img.svg"
-               @click="playMusic(track.trackUrl, track.id)"
-               class="toptracks__track__play__img" alt="pause_img" v-if="currentTrack === track.id">
-          <img src="../assets/icons/play-img.svg"
-               @click="playMusic(track.trackUrl, track.id)"
-               class="toptracks__track__play__img" alt="play_img" v-else>
+          <div class="toptracks__track__container__play" :class="{'toptracks__track__container__play--clicked' : currentTrack === track.id }">
+            <img src="../../assets/icons/pause-img.svg"
+                 @click="playMusic(track.trackUrl, track.id)"
+                 class="toptracks__track__container__play__img" alt="pause_img" v-if="currentTrack === track.id">
+            <img src="../../assets/icons/play-img.svg"
+                 @click="playMusic(track.trackUrl, track.id)"
+                 class="toptracks__track__container__play__img" alt="play_img" v-else>
+          </div>
         </div>
         <div class="toptracks__track__name">
           {{track.artistName}} - {{track.trackName}}
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import musicService from '../services/music.service'
+  import musicService from '../../services/music.service'
   import { Carousel, Slide } from 'vue-carousel';
   import { mapState, mapActions } from 'vuex'
 
@@ -101,5 +101,5 @@
 </script>
 
 <style lang="scss">
-  @import "../styles/components/TopTracks";
+  @import "./TopTracks";
 </style>

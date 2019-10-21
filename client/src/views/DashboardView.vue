@@ -7,13 +7,14 @@
 
 <script>
   import TopTracks from '../components/topTracks/TopTracks'
+  import musicService from '../services/music.service'
 
   export default {
     name: 'DashboardView',
+
     components: {
       TopTracks
     }
-
   };
 </script>
 

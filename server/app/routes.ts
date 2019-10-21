@@ -5,12 +5,13 @@ import {Server} from 'socket.io';
 // Controllers
 import authController from './controllers/AuthController';
 import chatController from "./controllers/ChatController";
-import musicController from './controllers/MusicController';
+import { MusicController } from "./controllers/MusicController";
 
 export class Routes {
 
     public static routes(app: Application): void {
 
+        let musicController = new MusicController();
         let apiRoutes = express.Router();
         let authRoutes = express.Router();
         let musicRoutes = express.Router();
@@ -21,14 +22,15 @@ export class Routes {
         // Auth Routes
         apiRoutes.use('/auth', authRoutes);
         authRoutes.get('/spotify', authController.loginWithSpotify);
-        authRoutes.get('/spotify/callback', authController.spotfiyCallback);
-        authRoutes.post('/spotify/userInfo', authController.getSpotfiyUserInfo);
+        authRoutes.get('/spotify/callback', authController.spotifyCallback);
+        authRoutes.post('/spotify/userInfo', authController.getSpotifyUserInfo);
 
         // Music Routes
         apiRoutes.use('/music', musicRoutes);
         musicRoutes.post('/top/artists', musicController.getUserTopArtists);
         musicRoutes.post('/top/tracks', musicController.getUserTopTracks);
         musicRoutes.post('/current/playing', musicController.getCurrentPlaying);
+        musicRoutes.get('/userGenre', musicController.getUserGenre);
 
     }
 

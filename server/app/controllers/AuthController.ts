@@ -17,7 +17,7 @@ export default class AuthController {
             }))
     }
 
-    public static spotfiyCallback(req: Request, res: Response, next: NextFunction) {
+    public static spotifyCallback(req: Request, res: Response, next: NextFunction) {
         let code = req.query.code || null;
         let authOptions = {
             url: 'https://accounts.spotify.com/api/token',
@@ -42,7 +42,7 @@ export default class AuthController {
         })
     }
 
-    static async getSpotfiyUserInfo(req: Request, res: Response, next: NextFunction) {
+    static async getSpotifyUserInfo(req: Request, res: Response, next: NextFunction) {
         axios.defaults.headers.common = {'Authorization': `Bearer ${req.body.token}`};
         let response = await axios.get(process.env.SPOTIFY_USER_URL as string);
         if(response.status === 200) {

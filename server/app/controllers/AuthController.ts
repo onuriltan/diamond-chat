@@ -4,11 +4,11 @@ import querystring from 'querystring';
 import request from 'request';
 import userDb from '../db/services/UserDb';
 import ISpotifyLoginRes from "../models/interfaces/login/ISpotifyLoginRes";
-import SpotfiyLoginRes from "../models/implementations/login/SpotfiyLoginRes";
+import SpotifyLoginRes from "../models/implementations/login/SpotfiyLoginRes";
 
-export default class AuthController {
+export class AuthController {
 
-    public static loginWithSpotify(req: Request, res: Response, next: NextFunction) {
+    public loginWithSpotify(req: Request, res: Response, next: NextFunction) {
         res.redirect('https://accounts.spotify.com/authorize?' +
             querystring.stringify({
                 response_type: 'code',
@@ -17,7 +17,7 @@ export default class AuthController {
             }))
     }
 
-    public static spotifyCallback(req: Request, res: Response, next: NextFunction) {
+    public spotifyCallback(req: Request, res: Response, next: NextFunction) {
         let code = req.query.code || null;
         let authOptions = {
             url: 'https://accounts.spotify.com/api/token',
@@ -36,13 +36,13 @@ export default class AuthController {
 
         request.post(authOptions, async (error, response, body) => {
             let access_token = body.access_token;
-            await AuthController.addUser(access_token);
+            await this.addUser(access_token);
             let redirectURL = process.env.REDIRECT_URL;
             res.redirect(redirectURL + access_token)
         })
     }
 
-    static async getSpotifyUserInfo(req: Request, res: Response, next: NextFunction) {
+     async getSpotifyUserInfo(req: Request, res: Response, next: NextFunction) {
         axios.defaults.headers.common = {'Authorization': `Bearer ${req.body.token}`};
         let response = await axios.get(process.env.SPOTIFY_USER_URL as string);
         if(response.status === 200) {
@@ -52,10 +52,10 @@ export default class AuthController {
         }
     }
 
-    private static async addUser(token: String) {
+    private async addUser(token: String) {
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
         let response = await axios.get(process.env.SPOTIFY_USER_URL as string);
-        let spotifyRes: ISpotifyLoginRes = new SpotfiyLoginRes(response.data);
+        let spotifyRes: ISpotifyLoginRes = new SpotifyLoginRes(response.data);
         let existingUser = await userDb.getUser(spotifyRes.id);
         let user = null;
         if(!existingUser) {

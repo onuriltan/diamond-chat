@@ -1,20 +1,21 @@
-import express from "express";
+import {Router} from "express";
 import {Application} from "express";
 import {Server} from 'socket.io';
 
 // Controllers
-import authController from './controllers/AuthController';
-import chatController from "./controllers/ChatController";
+import {AuthController} from './controllers/AuthController';
+import {ChatController} from "./controllers/ChatController";
 import { MusicController } from "./controllers/MusicController";
 
 export class Routes {
 
-    public static routes(app: Application): void {
+    public initRoutes(app: Application): void {
 
-        let musicController = new MusicController();
-        let apiRoutes = express.Router();
-        let authRoutes = express.Router();
-        let musicRoutes = express.Router();
+        let musicController = new MusicController([1,2,3,4]);
+        let authController = new AuthController();
+        let apiRoutes = Router();
+        let authRoutes = Router();
+        let musicRoutes = Router();
 
         // Base route
         app.use('/api', apiRoutes);
@@ -31,10 +32,12 @@ export class Routes {
         musicRoutes.post('/top/tracks', musicController.getUserTopTracks);
         musicRoutes.post('/current/playing', musicController.getCurrentPlaying);
         musicRoutes.get('/userGenre', musicController.getUserGenre);
+        musicRoutes.get('/userGenree', musicController.asd);
 
     }
 
-    public static chat(io: Server): void {
+    public chat(io: Server): void {
+        let chatController = new ChatController();
         chatController.chat(io);
     }
 }

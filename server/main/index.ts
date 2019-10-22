@@ -1,4 +1,5 @@
 import { ChatServer } from './app';
 
-let app = new ChatServer().getApp();
+let chatServer = new ChatServer().getApp();
+let app = chatServer.ge
 export { app };

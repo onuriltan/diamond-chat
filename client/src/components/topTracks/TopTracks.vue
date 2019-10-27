@@ -6,22 +6,22 @@
     <Carousel :per-page="4" style="width: 80%" :loop="true" v-if="tracks.length>0"
               :speed="1000" :navigationEnabled="true" paginationActiveColor="#1db954"
               :navigationClickTargetSize="20" >
-      <Slide v-for="track in tracks" :key="track.id" class="toptracks__track">
+      <Slide v-for="track in tracks" :key="track._id" class="toptracks__track">
         <div class="toptracks__track__container">
-          <img :src="track.imageUrl" class="toptracks__track__container__img"
-               :class="{'toptracks__track__container__img--clicked' : currentTrack === track.id }"
-               :alt="track.trackName">
-          <div class="toptracks__track__container__play" :class="{'toptracks__track__container__play--clicked' : currentTrack === track.id }">
+          <img :src="track._imageUrl" class="toptracks__track__container__img"
+               :class="{'toptracks__track__container__img--clicked' : currentTrack === track._id }"
+               :alt="track._trackName">
+          <div class="toptracks__track__container__play" :class="{'toptracks__track__container__play--clicked' : currentTrack === track._id }">
             <img src="../../assets/icons/pause-img.svg"
-                 @click="playMusic(track.trackUrl, track.id)"
-                 class="toptracks__track__container__play__img" alt="pause_img" v-if="currentTrack === track.id">
+                 @click="playMusic(track._trackUrl, track._id)"
+                 class="toptracks__track__container__play__img" alt="pause_img" v-if="currentTrack === track._id">
             <img src="../../assets/icons/play-img.svg"
-                 @click="playMusic(track.trackUrl, track.id)"
+                 @click="playMusic(track._trackUrl, track._id)"
                  class="toptracks__track__container__play__img" alt="play_img" v-else>
           </div>
         </div>
         <div class="toptracks__track__name">
-          {{track.artistName}} - {{track.trackName}}
+          {{track._artistName}} - {{track._trackName}}
         </div>
       </Slide>
     </Carousel>

@@ -10,8 +10,7 @@ import { MusicController } from "./controllers/MusicController";
 export class Routes {
 
     public initRoutes(app: Application): void {
-
-        let musicController = new MusicController([1,2,3,4]);
+        let musicController = new MusicController();
         let authController = new AuthController();
         let apiRoutes = Router();
         let authRoutes = Router();
@@ -32,7 +31,6 @@ export class Routes {
         musicRoutes.post('/top/tracks', musicController.getUserTopTracks);
         musicRoutes.post('/current/playing', musicController.getCurrentPlaying);
         musicRoutes.get('/userGenre', musicController.getUserGenre);
-        musicRoutes.get('/userGenree', musicController.asd);
 
     }
 

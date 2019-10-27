@@ -9,31 +9,23 @@ import * as dotenv from "dotenv";
 import {createServer, Server} from 'http';
 import socketIo from 'socket.io';
 
-
-export class ChatServer {
-    public static readonly PORT: number = process.env.PORT as unknown as number || 5000;
-    private mongoURL: string = '';
-    private app: Application = express();
-    private server: Server = createServer(this.app);
+export class App {
+    public readonly PORT: number = process.env.PORT as unknown as number || 5000;
+    private readonly mongoURL: string = '';
+    private readonly app: Application = express();
+    private readonly server: Server = createServer(this.app);
     private io: socketIo.Server = socketIo(this.server);
-    private routes: Routes;
+    private routes: Routes = new Routes();
 
     constructor() {
-        this.routes = new Routes();
         this.io = socketIo(this.server);
-        this.server = createServer(this.app);
         this.app = express();
+        this.server = createServer(this.app);
         this.mongoURL = process.env.MONGO_URL as string;
-        console.log(this.mongoURL)
         this.config();
         this.mongoSetup();
-        this.createSocket();
         this.initRoutes();
         this.serveSPA();
-    }
-
-    public getApp(): Application {
-        return this.app;
     }
 
     private config(): void {
@@ -42,10 +34,6 @@ export class ChatServer {
         this.app.use(cookieParser());
         this.app.use(cors({origin: true}));
         this.app.use(logger('tiny')); // Log requests to API using morgan
-    }
-
-    private initRoutes(): void {
-        this.routes.initRoutes(this.app)
     }
 
     private mongoSetup(): void {
@@ -59,17 +47,22 @@ export class ChatServer {
             });
     }
 
-    private createSocket(): void {
-        this.server.listen(ChatServer.PORT, () => {
-            console.log('Running server on port %s', ChatServer.PORT);
-        });
-        // this.routes.chat(this.io);
-    }
 
     private serveSPA() {
         if (process.env.NODE_ENV !== 'development') {
             this.app.use(express.static(__dirname + '/dist'));
             this.app.get('*', (req: Request, res: Response) => res.sendFile(__dirname + '/dist/index.html'));
         }
+    }
+
+    private initRoutes = () => {
+        this.routes.initRoutes(this.app)
+    };
+
+    public listen(): void {
+        this.server.listen(this.PORT, () => {
+            console.log('Running server on port %s', this.PORT);
+        });
+        this.routes.chat(this.io);
     }
 }

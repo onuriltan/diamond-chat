@@ -38,7 +38,6 @@ export class AuthController {
             let access_token = body.access_token;
             await this.addUser(access_token, res);
             let redirectURL = process.env.REDIRECT_URL;
-            console.log(redirectURL)
             res.redirect(redirectURL + access_token)
         })
     };

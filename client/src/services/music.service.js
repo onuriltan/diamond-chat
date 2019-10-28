@@ -20,7 +20,6 @@ class MusicService {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await axios.post(topArtistsUrl, {token});
-        console.log(res.data);
         resolve(res)
       } catch (e) {
         reject(e)

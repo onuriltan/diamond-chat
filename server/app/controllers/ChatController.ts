@@ -45,9 +45,7 @@ export class ChatController {
                 console.log('Chat ended')
             })
         };
-
         io.on('connect', onConnect);
-
     }
 
     private findPeerForLoneSocket(socket: Socket) {

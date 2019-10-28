@@ -1,5 +1,5 @@
 import { App } from './app';
 
-const chatServer = new App();
-chatServer.listen();
+const app = new App();
+app.listen();
 

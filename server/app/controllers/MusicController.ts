@@ -18,8 +18,12 @@ export class MusicController {
         } catch (e) {
             return res.status(e.response.data.error.status).send(e.response.data.error)
         }
-        let convertedRes = this.convertTracks(response.data.items);
-        return res.status(200).send(convertedRes);
+        if (response.data.items && Array.isArray(response.data.items))  {
+            let convertedRes = this.convertTracks(response.data.items);
+            return res.status(200).send(convertedRes);
+        } else {
+            return res.status(200).send([]);
+        }
     };
 
     getUserTopArtists = async (req: Request, res: Response) => {

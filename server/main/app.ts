@@ -6,43 +6,39 @@ import logger from "morgan";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import * as dotenv from "dotenv";
-import {createServer, Server} from 'http';
+import http from 'http';
 import socketIo from 'socket.io';
 
-
-export class ChatServer {
-    public static readonly PORT: number = process.env.PORT as unknown as number || 5000;
+export class App {
+    public port: number;
     private mongoURL: string;
     private app: express.Application;
-    private server: Server;
+    private server: http.Server;
     private io: socketIo.Server;
+    private routes: Routes;
 
     constructor() {
-        this.createApp();
-        this.config();
+        dotenv.config();
+        this.mongoURL = process.env.MONGO_URL as string;
+        this.port = parseInt(process.env.PORT || '5000');
+        this.app = express();
+        this.server = http.createServer(this.app);
+        this.io = socketIo(this.server);
+        this.routes = new Routes();
+        this.middlewares();
         this.mongoSetup();
-        this.createSocket();
+        this.initRoutes();
         this.serveSPA();
     }
 
-    private createApp(): void {
-        this.app = express();
-        this.server = createServer(this.app);
-        this.io = socketIo(this.server);
-    }
-
-    private config(): void {
-        dotenv.config();
+    private middlewares(): void {
         this.app.use(bodyParser.json());
         this.app.use(cookieParser());
         this.app.use(cors({origin: true}));
         this.app.use(logger('tiny')); // Log requests to API using morgan
-        Routes.routes(this.app);
     }
 
     private mongoSetup(): void {
-        this.mongoURL = process.env.MONGO_URL as string;
-        mongoose.Promise = global.Promise;
         mongoose.set('useCreateIndex', true);
         mongoose.connect(this.mongoURL, {useNewUrlParser: true})
             .then(() => {
@@ -53,23 +49,22 @@ export class ChatServer {
             });
     }
 
-    private createSocket(): void {
-        this.server.listen(ChatServer.PORT, () => {
-            console.log('Running server on port %s', ChatServer.PORT);
-        });
-        Routes.chat(this.io);
-    }
 
     private serveSPA() {
         if (process.env.NODE_ENV !== 'development') {
-            // Static folder
             this.app.use(express.static(__dirname + '/dist'));
-            // Handle SPA
             this.app.get('*', (req: Request, res: Response) => res.sendFile(__dirname + '/dist/index.html'));
         }
     }
 
-    public getApp(): express.Application {
-        return this.app;
+    private initRoutes = () => {
+        this.routes.initRoutes(this.app);
+        this.routes.chat(this.io);
+    };
+
+    public listen(): void {
+        this.server.listen(this.port, () => {
+            console.log('Running server on port %s', this.port);
+        });
     }
 }

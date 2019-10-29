@@ -1,4 +1,5 @@
-import { ChatServer } from './app';
+import { App } from './app';
 
-let app = new ChatServer().getApp();
-export { app };
+const app = new App();
+app.listen();
+

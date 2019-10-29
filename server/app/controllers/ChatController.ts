@@ -1,16 +1,13 @@
-import {ChatServer} from "../../main/app";
-import {Server, Socket} from 'socket.io';
+import { Server, Socket } from 'socket.io';
 
-export default class ChatController {
+export class ChatController {
 
-    private static rooms: Object = {};    // map socket.id => room
-    private static names: Object = {};    // map socket.id => name
-    private static allUsers: Object = {};
-    private static queue: Array<Socket> = [];
+    private rooms: Object = {};    // map socket.id => room
+    private names: Object = {};    // map socket.id => name
+    private queue: Array<Socket> = [];
 
-    public static chat(io: Server) {
+    public chat(io: Server) {
         let onConnect = (socket: Socket) => {
-            console.log('Connected socket client on port %s.', ChatServer.PORT);
             socket.on('SEND_MESSAGE', function (data: { user: string; message: string; }) {
                 socket.broadcast.emit('SEND_MESSAGE', (data))
             });
@@ -48,12 +45,10 @@ export default class ChatController {
                 console.log('Chat ended')
             })
         };
-
         io.on('connect', onConnect);
-
     }
 
-    public static findPeerForLoneSocket(socket: Socket) {
+    private findPeerForLoneSocket(socket: Socket) {
 
         if (this.queue.length > 0) {
             // somebody is in queue, pair them!

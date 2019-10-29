@@ -1,49 +1,72 @@
-import {Request, Response, NextFunction} from "express";
-import axios from 'axios';
+import {Request, Response} from "express";
+import axios, {AxiosRequestConfig} from 'axios';
 import Track from '../models/implementations/music/Track'
+import TopArtistsResponse from "../models/response/TopArtistsResponse";
+import ITrack from "../models/interfaces/music/ITrack";
 
-export default class MusicController {
+export class MusicController {
+    getAxiosReqConfig = (token: String): AxiosRequestConfig => {
+        let config = {} as AxiosRequestConfig;
+        config.headers = {'Authorization': `Bearer ${token}`};
+        return config
+    };
 
-    static async getUserTopTracks(req: Request, res: Response, next: NextFunction) {
-        let response = await MusicController.getRequest(process.env.SPOTIFY_TOP_TRACKS_URL as string, req.body.token);
-        if(response.status === 401){
-            return res.status(401).send({"error": "access token expired"})
+    getUserTopTracks = async (req: Request, res: Response) => {
+        let response = null;
+        try {
+            response = await this.getRequest(process.env.SPOTIFY_TOP_TRACKS_URL as string, req.body.token);
+        } catch (e) {
+            return res.status(e.response.data.error.status).send(e.response.data.error)
         }
-        let convertedRes = MusicController.convertTracks(response.data.items);
-        if(response.status === 200) {
+        if (response.data.items && Array.isArray(response.data.items))  {
+            let convertedRes = this.convertTracks(response.data.items);
             return res.status(200).send(convertedRes);
-        }else {
-            return res.status(400).send({"error": "invalid token"})
+        } else {
+            return res.status(200).send([]);
         }
-    }
+    };
 
-    static async getUserTopArtists(req: Request, res: Response, next: NextFunction) {
-        let response = await MusicController.getRequest(process.env.SPOTIFY_TOP_ARTISTS_URL as string, req.body.token);
-        if(response.status === 401){
-            return res.status(401).send({"error": "access token expired"})
+    getUserTopArtists = async (req: Request, res: Response) => {
+        let response = null;
+        try {
+            response = await await this.getRequest(process.env.SPOTIFY_TOP_ARTISTS_URL as string, req.body.token);
+        } catch (e) {
+            return res.status(e.response.data.error.status).send(e.response.data.error)
         }
-        if(response.status === 200) {
-            return res.status(200).send(response.data);
-        }else {
-            return res.status(400).send({"error": "invalid token"})
-        }
-    }
+        return res.status(200).send(response.data);
+    };
 
-    static async getCurrentPlaying(req: Request, res: Response, next: NextFunction) {
-        let response = await MusicController.getRequest(process.env.SPOTIFY_CURRENT_PALYING_URL as string, req.body.token);
-        if(response.status === 401){
-            return res.status(401).send({"error": "access token expired"})
+    getUserGenre = async (req: Request, res: Response) => {
+        let url: string = process.env.SPOTIFY_TOP_ARTISTS_URL as string;
+        let response = null;
+        try {
+            response = await axios.get(url, this.getAxiosReqConfig(req.headers.authorization as string));
+        } catch (e) {
+            return res.status(e.response.data.error.status).send(e.response.data.error)
         }
-        if(response.status === 200) {
-            return res.status(200).send(response.data);
-        }else {
-            return res.status(400).send({"error": "invalid token"})
+        if (response) {
+            let theResponse: TopArtistsResponse = response.data;
+            let genres: string[] = [];
+            theResponse.items.forEach(item => {
+                genres.push(item.genres.toString())
+            });
+            return res.status(200).send(genres)
         }
-    }
+    };
 
-    private static convertTracks(topTracks: Array<any>) {
-        let tracks = new Array<Track>();
-        for(let track of topTracks) {
+    getCurrentPlaying = async (req: Request, res: Response) => {
+        let response = null;
+        try {
+            response = await this.getRequest(process.env.SPOTIFY_CURRENT_PALYING_URL as string, req.body.token);
+        } catch (e) {
+            return res.status(e.response.data.error.status).send(e.response.data.error)
+        }
+        return res.status(200).send(response.data);
+    };
+
+    convertTracks = (topTracks: Array<any>) => {
+        let tracks = new Array<ITrack>();
+        for (let track of topTracks) {
             let t = new Track();
             t.id = track.id;
             t.artistName = track.artists[0].name;
@@ -53,15 +76,15 @@ export default class MusicController {
             tracks.push(t);
         }
         return tracks;
-    }
+    };
 
-    static async getRequest (url: string, token: string) {
+    getRequest = async (url: string, token: string) => {
         axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
         try {
             return await axios.get(url)
         } catch (error) {
             return error.response
         }
-    }
+    };
 
 }

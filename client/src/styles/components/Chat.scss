@@ -29,6 +29,8 @@
       color: $main-text-color;
       font-size: 13px;
       margin-bottom: 20px;
+      padding: 12px;
+      word-break: break-all;
       @extend .chat-bubble
     }
 

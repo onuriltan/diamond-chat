@@ -3,8 +3,16 @@ import axios, {AxiosRequestConfig} from 'axios';
 import Track from '../models/implementations/music/Track'
 import TopArtistsResponse from "../models/response/TopArtistsResponse";
 import ITrack from "../models/interfaces/music/ITrack";
+import { MusicService } from "../services/MusicService";
 
 export class MusicController {
+    let musicService: MusicService;
+
+    constructor(){
+        this.musicService = new MusicService()
+    }
+
+
     getAxiosReqConfig = (token: String): AxiosRequestConfig => {
         let config = {} as AxiosRequestConfig;
         config.headers = {'Authorization': `Bearer ${token}`};

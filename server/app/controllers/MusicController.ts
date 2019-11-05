@@ -73,7 +73,7 @@ export class MusicController {
             return res.status(e.response.data.error.status).send(e.response.data.error)
         }
         return res.status(200).send(response.data);
-    };
+    }
 
     convertTracks = (topTracks: Array<any>) => {
         let tracks = new Array<ITrack>();

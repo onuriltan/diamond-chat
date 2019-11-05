@@ -27,7 +27,9 @@ export class MusicService {
             };
             object.genre = value;
             object.count = key;
-            sortedArray.push(object)
+            if (object.count > parseInt(process.env.MINIMUM_GENRE_LISTENED_AMOUNT as string)){
+                sortedArray.push(object)
+            }
         });
         return sortedArray;
     }

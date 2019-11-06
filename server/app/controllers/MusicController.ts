@@ -3,8 +3,16 @@ import axios, {AxiosRequestConfig} from 'axios';
 import Track from '../models/implementations/music/Track'
 import TopArtistsResponse from "../models/response/TopArtistsResponse";
 import ITrack from "../models/interfaces/music/ITrack";
+import { MusicService } from "../services/MusicService";
 
 export class MusicController {
+    private musicService: MusicService;
+
+    constructor(){
+        this.musicService = new MusicService()
+    }
+
+
     getAxiosReqConfig = (token: String): AxiosRequestConfig => {
         let config = {} as AxiosRequestConfig;
         config.headers = {'Authorization': `Bearer ${token}`};
@@ -29,7 +37,7 @@ export class MusicController {
     getUserTopArtists = async (req: Request, res: Response) => {
         let response = null;
         try {
-            response = await await this.getRequest(process.env.SPOTIFY_TOP_ARTISTS_URL as string, req.body.token);
+            response = await this.getRequest(process.env.SPOTIFY_TOP_ARTISTS_URL as string, req.body.token);
         } catch (e) {
             return res.status(e.response.data.error.status).send(e.response.data.error)
         }
@@ -50,7 +58,10 @@ export class MusicController {
             theResponse.items.forEach(item => {
                 genres.push(item.genres.toString())
             });
-            return res.status(200).send(genres)
+            let convertedGenres = this.musicService.getUserGenre(genres);
+            return res.status(200).send(convertedGenres)
+        } else {
+            return res.status(404).send("error")
         }
     };
 
@@ -62,7 +73,7 @@ export class MusicController {
             return res.status(e.response.data.error.status).send(e.response.data.error)
         }
         return res.status(200).send(response.data);
-    };
+    }
 
     convertTracks = (topTracks: Array<any>) => {
         let tracks = new Array<ITrack>();
